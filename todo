@@ -1,0 +1,1545 @@
+! function(M) {
+    function t(u) {
+        if (N[u]) return N[u].exports;
+        var n = N[u] = {
+            exports: {},
+            id: u,
+            loaded: !1
+        };
+        return M[u].call(n.exports, n, n.exports, t), n.loaded = !0, n.exports
+    }
+    var N = {};
+    return t.m = M, t.c = N, t.p = "/", t(0)
+}(function(M) {
+    for (var t in M)
+        if (Object.prototype.hasOwnProperty.call(M, t)) switch (typeof M[t]) {
+            case "function":
+                break;
+            case "object":
+                M[t] = function(t) {
+                    var N = t.slice(1),
+                        u = M[t[0]];
+                    return function(M, t, n) {
+                        u.apply(this, [M, t, n].concat(N))
+                    }
+                }(M[t]);
+                break;
+            default:
+                M[t] = M[M[t]]
+        }
+        return M
+}([function(M, t, N) {
+    M.exports = N(16)
+}, function(M, t, N) {
+    function u(M, t, N) {
+        for (var u = N && N.clearTransforms === !0, j = 0, e = M.length; e > j; j++) u && n(M[j]), M[j].style[L] = t
+    }
+
+    function n(M) {
+        M.style.transform = "", M.style[g] = ""
+    }
+
+    function j(M) {
+        M.style[L] = "", M.style.animation = ""
+    }
+
+    function e(M, t) {
+        for (var N = t && t.clearAnimations === !0, u = 0, n = M.length; n > u; u++) M[u].style[g] = getComputedStyle(M[u])[g], N && j(M[u])
+    }
+    var D = N(27),
+        i = N(11),
+        T = N(26),
+        r = N(24),
+        L = N(22),
+        y = N(37),
+        o = N(3);
+    if ("undefined" != typeof window) var g = N(39);
+    var z = {},
+        c = {
+            duration: 1e3,
+            fillMode: "both",
+            easing: "ease",
+            iterations: 1,
+            delay: 0,
+            direction: "normal",
+            resetWhenDone: !1,
+            clearTransformsBeforeStart: !1
+        };
+    t.hasAnimation = function(M) {
+        return z.hasOwnProperty(M)
+    }, t.runAnimation = y(function(M, t, N) {
+        if (N || (N = function() {}), "string" == typeof t && (t = {
+                name: t
+            }), M.length || (M = [M]), !t.name) return N(Error("must supply animation name"));
+        var n = z[t.name];
+        if (!n) return N(Error('no animation named "' + t.name + '" exists'));
+        t = D(t, n.presets, c);
+        var j = function() {
+            return i.remove(M[0], "AnimationEnd", j), t.resetWhenDone && e(M, {
+                clearAnimations: !0
+            }), N(null, M)
+        };
+        i.add(M[0], "AnimationEnd", j);
+        var T = [t.name, o(t.duration, "ms"), t.easing, t.iterations, o(t.delay, "ms"), t.direction, t.fillMode];
+        u(M, T.join(" "), {
+            clearTransforms: t.clearTransformsBeforeStart
+        })
+    }), t.unregisterAnimation = function(M) {
+        if (t.hasAnimation(M)) {
+            var N = z[M].el;
+            N.parentNode.removeChild(N), delete z[M]
+        }
+    }, t.getAnimationCSS = r, t.registerAnimation = function(M) {
+        t.unregisterAnimation(M.name);
+        var N = T(t.getAnimationCSS(M.name, M.animation));
+        N.setAttribute("data-name", M.name), z[M.name] = {
+            el: N,
+            presets: M.presets || {}
+        }
+    }
+}, function(M, t, N) {
+    function u() {
+        var M = this;
+        window.addEventListener("resize", function() {
+            j(function() {
+                M.trigger("resize")
+            })
+        }, !1)
+    }
+    var n = N(48),
+        j = N(49);
+    u.prototype.get = function(M) {
+        return this[M]
+    }, n.mixin(u.prototype), Object.defineProperty(u.prototype, "width", {
+        get: function() {
+            return window.innerWidth
+        }
+    }), Object.defineProperty(u.prototype, "height", {
+        get: function() {
+            return window.innerHeight
+        }
+    }), M.exports = new u
+}, function(M, t) {
+    M.exports = function(M, t) {
+        return "string" == typeof M ? M : M + t
+    }
+}, function(M, t) {
+    var N = "";
+    if ("undefined" != typeof document) {
+        var u = document.documentElement || document.createElement("div");
+        N = null != u.style.animation ? "" : "-webkit-"
+    }
+    M.exports = N
+}, function(M, t, N) {
+    M.exports = N(12)()
+}, function(M, t, N) {
+    function u(M) {
+        return function(t) {
+            return null == t ? void 0 : t[M]
+        }
+    }
+
+    function n(M) {
+        return null != M && e(a(M))
+    }
+
+    function j(M, t) {
+        return M = "number" == typeof M || o.test(M) ? +M : -1, t = null == t ? I : t, M > -1 && M % 1 == 0 && t > M
+    }
+
+    function e(M) {
+        return "number" == typeof M && M > -1 && M % 1 == 0 && I >= M
+    }
+
+    function D(M) {
+        for (var t = T(M), N = t.length, u = N && M.length, n = !!u && e(u) && (y(M) || L(M)), D = -1, i = []; ++D < N;) {
+            var r = t[D];
+            (n && j(r, u) || z.call(M, r)) && i.push(r)
+        }
+        return i
+    }
+
+    function i(M) {
+        var t = typeof M;
+        return !!M && ("object" == t || "function" == t)
+    }
+
+    function T(M) {
+        if (null == M) return [];
+        i(M) || (M = Object(M));
+        var t = M.length;
+        t = t && e(t) && (y(M) || L(M)) && t || 0;
+        for (var N = M.constructor, u = -1, n = "function" == typeof N && N.prototype === M, D = Array(t), T = t > 0; ++u < t;) D[u] = u + "";
+        for (var r in M) T && j(r, t) || "constructor" == r && (n || !z.call(M, r)) || D.push(r);
+        return D
+    }
+    var r = N(34),
+        L = N(35),
+        y = N(36),
+        o = /^\d+$/,
+        g = Object.prototype,
+        z = g.hasOwnProperty,
+        c = r(Object, "keys"),
+        I = 9007199254740991,
+        a = u("length"),
+        O = c ? function(M) {
+            var t = null == M ? void 0 : M.constructor;
+            return "function" == typeof t && t.prototype === M || "function" != typeof M && n(M) ? D(M) : i(M) ? c(M) : []
+        } : D;
+    M.exports = O
+}, function(M, t) {
+    function N(M, t) {
+        if ("function" != typeof M) throw new TypeError(u);
+        return t = n(void 0 === t ? M.length - 1 : +t || 0, 0),
+            function() {
+                for (var N = arguments, u = -1, j = n(N.length - t, 0), e = Array(j); ++u < j;) e[u] = N[t + u];
+                switch (t) {
+                    case 0:
+                        return M.call(this, e);
+                    case 1:
+                        return M.call(this, N[0], e);
+                    case 2:
+                        return M.call(this, N[0], N[1], e)
+                }
+                var D = Array(t + 1);
+                for (u = -1; ++u < t;) D[u] = N[u];
+                return D[t] = e, M.apply(this, D)
+            }
+    }
+    var u = "Expected a function",
+        n = Math.max;
+    M.exports = N
+}, function(M, t, N) {
+    function u(M, t, N) {
+        var u = T[t];
+        if ("undefined" == typeof u && (u = j(t)), u) {
+            if (void 0 === N) return M.style[u];
+            "number" == typeof N && (N += r[u] || ""), M.style[u] = N
+        }
+    }
+
+    function n(M, t) {
+        for (var N in t) t.hasOwnProperty(N) && u(M, N, t[N])
+    }
+
+    function j(M) {
+        var t = i(M),
+            N = D(t);
+        return T[t] = T[M] = T[N] = N, N
+    }
+
+    function e() {
+        2 === arguments.length ? n(arguments[0], arguments[1]) : u(arguments[0], arguments[1], arguments[2])
+    }
+    var D = N(40),
+        i = N(41),
+        T = {
+            "float": "cssFloat"
+        },
+        r = {};
+    ["top", "right", "bottom", "left", "width", "height", "fontSize", "paddingLeft", "paddingRight", "paddingTop", "paddingBottom", "marginLeft", "marginRight", "marginTop", "marginBottom", "padding", "margin", "perspective"].forEach(function(M) {
+        r[M] = "px"
+    }), M.exports = e, M.exports.set = e, M.exports.get = function(M, t) {
+        return Array.isArray(t) ? t.reduce(function(t, N) {
+            return t[N] = u(M, N || ""), t
+        }, {}) : u(M, t || "")
+    }
+}, function(M, t) {
+    var N = [],
+        u = N.forEach,
+        n = N.slice;
+    M.exports = function(M) {
+        return u.call(n.call(arguments, 1), function(t) {
+            if (t)
+                for (var N in t) M[N] = t[N]
+        }), M
+    }
+}, function(M, t, N) {
+    function u(M, t) {
+        var N = 0,
+            u = 0;
+        t && t.includePageOffset && (N = M.offsetLeft, u = M.offsetLeft);
+        var D = e.exec(n(M)[j])[1].split(",").map(function(M) {
+            return parseInt(M, 10)
+        });
+        return {
+            x: N + D[4],
+            y: u + D[5]
+        }
+    }
+    var n, j = N(45),
+        e = /matrix\((.*)\)/;
+    void 0 !== typeof window && (n = window.getComputedStyle), n ? M.exports = u : M.exports = function() {}
+}, function(M, t) {
+    M.exports = function() {
+        "use strict";
+
+        function M(M, t) {
+            if (!M) throw new Error(t)
+        }
+
+        function t() {}
+        var N = ["webkit", "moz", "MS", "o", ""];
+        return {
+            add: function(u, n, j) {
+                j = j || t, M(u, "element is required"), M(n, "type is required");
+                for (var e = 0; e < N.length; e++) N[e] || (n = n.toLowerCase()), u.addEventListener(N[e] + n, j, !1)
+            },
+            remove: function(u, n, j) {
+                j = j || t, M(u, "element is required"), M(n, "type is required");
+                for (var e = 0; e < N.length; e++) N[e] || (n = n.toLowerCase()), u.removeEventListener(N[e] + n, j, !1)
+            }
+        }
+    }()
+}, function(M, t) {
+    function N(M) {
+        return [M[0], M[1]]
+    }
+
+    function u(M, t) {
+        return [M, t]
+    }
+    M.exports = function(M) {
+        function t(M, t, u, j, e) {
+            j.push(N(M));
+            var D = M[0],
+                i = M[1],
+                T = t[0],
+                r = t[1],
+                L = u[0],
+                y = u[1];
+            n(D, i, T, r, L, y, j, e, 0), j.push(N(u))
+        }
+
+        function n(M, t, N, D, r, L, y, o, g) {
+            if (!(g > j)) {
+                var z = Math.PI,
+                    c = (M + N) / 2,
+                    I = (t + D) / 2,
+                    a = (N + r) / 2,
+                    O = (D + L) / 2,
+                    x = (c + a) / 2,
+                    s = (I + O) / 2,
+                    A = r - M,
+                    E = L - t,
+                    w = Math.abs((N - r) * E - (D - L) * A);
+                if (w > e) {
+                    if (o * (A * A + E * E) >= w * w) {
+                        if (i > T) return void y.push(u(x, s));
+                        var l = Math.abs(Math.atan2(L - D, r - N) - Math.atan2(D - t, N - M));
+                        if (l >= z && (l = 2 * z - l), T > l) return void y.push(u(x, s))
+                    }
+                } else if (A = x - (M + r) / 2, E = s - (t + L) / 2, o >= A * A + E * E) return void y.push(u(x, s));
+                n(M, t, c, I, x, s, y, o, g + 1), n(x, s, a, O, r, L, y, o, g + 1)
+            }
+        }
+        M = M || {};
+        var j = "number" == typeof M.recursion ? M.recursion : 8,
+            e = "number" == typeof M.epsilon ? M.epsilon : 1.1920929e-7,
+            D = "number" == typeof M.pathEpsilon ? M.pathEpsilon : 1,
+            i = "number" == typeof M.angleEpsilon ? M.angleEpsilon : .01,
+            T = M.angleTolerance || 0;
+        return function(M, N, u, n, j) {
+            j || (j = []), n = "number" == typeof n ? n : 1;
+            var e = D / n;
+            return e *= e, t(M, N, u, j, e), j
+        }
+    }
+}, function(M, t, N) {
+    "use strict";
+
+    function u(M) {
+        return function(t) {
+            return t[M]
+        }
+    }
+    var n = N(20);
+    M.exports = function(M, t) {
+        t || (t = 16);
+        var N, j, e, D, i, T = [],
+            r = 0;
+        for (Array.isArray(M[0]) ? (N = M.map(u(0)), void 0 !== M[0][1] && (j = M.map(u(1))), void 0 !== M[0][2] && (e = M.map(u(2)))) : N = M; t > r; r++) D = r / (t - 1), i = [n(N, D)], j && i.push(n(j, D)), e && i.push(n(e, D)), T.push(i);
+        return T
+    }
+}, function(M, t, N) {
+    "use strict";
+
+    function u(M) {
+        return M ? M + "px" : "0"
+    }
+
+    function n(M, t) {
+        var N = document.createElement("div"),
+            n = document.createElement("div"),
+            D = document.createElement("div"),
+            T = document.createElement("img"),
+            r = document.createElement("a"),
+            L = document.createElement("p");
+        N.appendChild(r), r.appendChild(n), r.appendChild(D), n.appendChild(T), t && ! function() {
+            r.appendChild(L), r.href = t.url, r.addEventListener("click", function(M) {
+                M.preventDefault(), window._kmq.push(["record", "Clicked Dot Menu Link", {
+                    site: t.name
+                }]), setTimeout(function() {
+                    window.location = r.href
+                }, 100)
+            }), L.textContent = t.body;
+            var M = "rgba(255, 255, 255, 0.7)";
+            e(L, {
+                display: "none",
+                width: "120px",
+                position: "absolute",
+                left: "-35px",
+                bottom: "40px",
+                textAlign: "center",
+                fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
+                textDecoration: "none",
+                color: "#777",
+                transform: "rotateX(180deg)",
+                backgroundColor: M,
+                borderRadius: "5px",
+                padding: "5px"
+            }), L.onmouseenter = function() {
+                e(L, {
+                    backgroundColor: "white"
+                })
+            }, L.onmouseleave = function() {
+                e(L, {
+                    backgroundColor: M
+                })
+            }
+        }(), T.src = M, e(T, {
+            width: u(40),
+            position: "absolute",
+            left: u(5),
+            top: u(15)
+        }), t && e(T, t.styles);
+        var y = 50;
+        e(N, {
+            position: "absolute",
+            top: 0,
+            left: 0,
+            height: u(y),
+            width: u(y),
+            display: "none"
+        }), e(r, {
+            display: "block",
+            position: "relative",
+            top: 0,
+            left: 0,
+            height: u(y),
+            width: u(y),
+            transition: "transform 500ms",
+            transformStyle: "preserve-3d",
+            margin: 0
+        });
+        var o = {
+            boxShadow: [u(0), u(0), u(3), "#00B1ED"].join(" "),
+            borderRadius: "100%",
+            position: "absolute",
+            backgroundColor: "white",
+            width: u(50),
+            height: u(50),
+            backfaceVisibility: "hidden"
+        };
+        return n.className = "front", e(n, j({
+            zIndex: 2,
+            transform: "rotateY(0deg)"
+        }, o)), D.className = "back", e(D, j({
+            transform: "rotateY(180deg)",
+            zIndex: 10
+        }, o)), i.appendChild(N), N
+    }
+    var j = N(9),
+        e = N(8),
+        D = N(15),
+        i = document.createElement("div"),
+        T = {
+            main: null,
+            sub: [],
+            container: i,
+            all: []
+        };
+    e(i, {
+        position: "fixed",
+        top: 0,
+        left: 0,
+        width: 0,
+        height: 0
+    });
+    var r = n(D.andyet);
+    e(r, {
+        display: "block",
+        zIndex: 5,
+        position: "absolute",
+        top: 0,
+        left: 0,
+        height: u(50),
+        width: u(50),
+        transform: "translate3d(0,-50px,0)"
+    }), r.className = "mainDot";
+    var L = document.createElement("img");
+    L.src = D.x, r.querySelector(".back").appendChild(L), e(L, {
+        height: u(30),
+        width: u(30),
+        position: "relative",
+        left: u(10),
+        top: u(9)
+    }), T.main = r, T.all.push(r);
+    var y = [{
+        name: "andyet",
+        body: "About &yet",
+        url: "https://andyet.com/",
+        styles: {
+            top: "12px"
+        }
+    }, {
+        name: "talky",
+        body: "Private, secure video calls",
+        url: "https://talky.io/",
+        styles: {
+            top: "12px"
+        }
+    }, {
+        name: "lift",
+        body: "Is your software secure?",
+        url: "https://liftsecurity.io/",
+        styles: {
+            top: "14px",
+            left: "6px"
+        }
+    }, {
+        name: "seaworthy",
+        body: "Node.js and Frontend",
+        url: "https://seaworthy.io",
+        styles: {
+            top: "4px",
+            left: "3px",
+            width: "35px"
+        }
+    }];
+    y = y.forEach(function(M) {
+        var t = n(D[M.name], M);
+        e(t, {
+            display: "none"
+        }), e(t.querySelector(".back"), {
+            transform: "rotateY(0deg)"
+        }), e(t.querySelector(".front"), {
+            transform: "rotateY(180deg)"
+        }), e(t.querySelector("img"), {
+            transform: "rotateY(180deg) rotateX(180deg)"
+        }), t.className = "childDot", T.sub.push(t), T.all.push(t)
+    }), document.body.appendChild(i), M.exports = T
+}, function(M, t) {
+    "use strict";
+    M.exports = {
+        andyet: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTU2IiBoZWlnaHQ9IjMwMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczpza2V0Y2g9Imh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaC9ucyI+PHRpdGxlPlVudGl0bGVkIDM8L3RpdGxlPjxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPjxnIHNrZXRjaDp0eXBlPSJNU1NoYXBlR3JvdXAiIGZpbGw9Im5vbmUiPjxwYXRoIGQ9Ik05MS4yMiA5Ni4wNzRsMzcuODU2IDQ1LjQ1OSAxLjIyNC0xLjM1NmM0LjA4My00LjQxNCA3Ljk1LTguNzM0IDExLjU3Ni0xMi45ODYgMy42MzctNC4yMjkgMTIuOTUxLTE0LjMwMSAxNi4zMS0xOC42MjZsMTQuODg3IDI2Ljg4NGMtMi41NDggMy42MDgtNS44ODYgNy44MDEtMTAuMDIzIDEyLjU4My00LjEyMiA0Ljc4Ny05LjA0OSAxMC4yODItMTQuNzc1IDE2LjUwMmwzOC45NjEgNDcuNzY3aC0zOS40OTRsLTIwLjk3OC0yNS41NzFjLTE5LjI1NiAxOS43NTktMzkuMjY5IDI5LjYzLTYwLjA1MyAyOS42My0xOC42MjYgMC0zNC40MjQtNS44OTktNDcuNDAzLTE3LjczMS0xMi43MTQtMTEuODk5LTE5LjA2Ny0yNi42MDItMTkuMDY3LTQ0LjEwMSAwLTIwLjg0IDEwLjA3Mi0zOC4xNTcgMzAuMjMzLTUxLjk2MWwxMy43NTctOS4zMzRjLjE4NC0uMDg2LjUtLjMxNy45NDktLjY4NGwxLjkwNS0xLjQ3N2MtMTMuODg1LTE0LjcwOS0yMC44MzUtMjkuMTgyLTIwLjgzNS00My40NDIgMC0xNC4wNzMgNC42MzctMjUuNTI4IDEzLjg5My0zNC4zNjQgOS40NDUtOC44NCAyMS42MTgtMTMuMjY1IDM2LjUtMTMuMjY1IDE0LjQ0NiAwIDI2LjM3NyA0LjI4IDM1LjgxOSAxMi44NTEgOS40NDIgOC41ODUgMTQuMTY1IDE5LjM5NyAxNC4xNjUgMzIuNDczIDAgOS4wMi0yLjU4NCAxNy4xOTItNy43NjQgMjQuNDk1LTUuMDg2IDcuMzE1LTE0LjMwMyAxNi4wNTctMjcuNjQ1IDI2LjI1M2guMDAxem0tMjUuMTk4IDE3LjcyNmwtMS43NzMgMS4yMTljLTEyLjk4NCA4LjkzNC0yMS44MzkgMTYuMS0yNi41NTUgMjEuNTAyLTQuNjMyIDUuNDItNi45NDMgMTEuMTU0LTYuOTQzIDE3LjE5MiAwIDguNjYzIDMuNDk0IDE2LjYwMSAxMC40ODIgMjMuODA3IDcuMjU4IDYuOTUgMTUuMjQ5IDEwLjQxOSAyMy45NzcgMTAuNDE5IDEyLjI1IDAgMjYuMzc3LTcuOTc3IDQyLjM0OC0yMy45MzlsLTQxLjUzNy01MC4yem02LjgxNS0zOS45MTVsMi41ODQtMS45YzQuNDUtMy4zMTkgOC4xMjgtNi4yNDEgMTEuMDMzLTguNzE2IDIuOS0yLjQ4MyA0Ljk5OS00LjU4MSA2LjI2OS02LjI5OSAyLjcxOS0zLjMyNyA0LjA4My03LjQ0MiA0LjA4My0xMi4zMDQgMC01LjUwNi0xLjg2Mi05Ljk2Ni01LjU4My0xMy40MDQtMy43MjQtMy40MjMtOC43MjMtNS4xNDQtMTQuOTg3LTUuMTQ0LTUuNzE4IDAtMTAuNTI2IDEuNzY0LTE0LjQzNiA1LjI3OC0zLjg5OSAzLjM0NS01Ljg2MSA3LjYyNC01Ljg2MSAxMi44NTkgMCA2LjEzNyAyLjQ1NiAxMi4xNzUgNy4zNjEgMTguMTM0bDcuODk0IDkuNDY5Yy4yNzYuNDQ4LjgyMSAxLjEzMyAxLjY0MyAyLjAyN3oiIGlkPSJTaGFwZSIgZmlsbD0iI0VFMDc4OCIvPjxwYXRoIGQ9Ik0xNDIuMDA0IDcwLjFjNy40MzUuNzQ1IDE0LjMyOCAxLjE3MSAyMC42NDMgMS4yOTIgNi4zMy4xMzcgMTMuMzQ5LjE5MyAyMS4wMzkuMTkzIDcuNDIyIDAgMTQuOTk0LS4wNTYgMjIuNjg2LS4xOTMgNy42OS0uMTIxIDE1LjI2LS41NDcgMjIuNjk0LTEuMjkydjQuNDM0Yy01LjQ1LjQ5Ny0xMC42NTMgMi4xMDUtMTUuNjI0IDQuODA5LTQuOTQ4IDIuNzE2LTcuNDMyIDcuMTU1LTcuNDMyIDEzLjMwNSAwIDQuOTM2IDEuNTk5IDExLjUzNCA0LjgzOCAxOS43NzkgMy4yMTMgOC4yNjggNi45ODggMTcuMTM0IDExLjMzOSAyNi42MTUgNC4zMzggOS40OTkgOC44MTQgMTkuMTY4IDEzLjM5MiAyOS4wMjUgNC41ODYgOS44NjIgOC4yNDggMTguOTc4IDEwLjk3MiAyNy4zNTggMS4yNS0yLjQ2OCAzLjE3My02LjUzMiA1Ljc3NC0xMi4yMDUgMi42MDctNS42NzEgNS41ODMtMTIuMTQyIDguOTI2LTE5LjQwMSAzLjM0Ni03LjI1OSA2LjcxMy0xNC44NTEgMTAuMDQ2LTIyLjcyOCAzLjM1OS03Ljg4OCA2LjQ1My0xNS4yNzkgOS4zMTktMjIuMTg0IDIuODM5LTYuOTA5IDUuMTk1LTEyLjkzMiA3LjA1LTE4LjEwOSAxLjg4LTUuMTg0IDIuODA4LTguNjMgMi44MDgtMTAuMzYxIDAtMi45NTItLjY4Ni01LjI5OC0yLjA0OC03LjAyMS0xLjM2Ny0xLjcyNS0zLjAzNS0zLjE0NC01LjAzMi00LjI2Mi0xLjk4OS0xLjA5LTQuMzM4LTEuOTU0LTcuMDczLTIuNTgyLTIuNzIxLS42MDUtNS4zNDgtMS4yODctNy44MDctMi4wMzV2LTQuNDM0YzUuNjkzLjc0NSAxMS40MTMgMS4xNzEgMTcuMTA4IDEuMjkyIDUuNzA1LjEzNyAxMS41MzYuMTkzIDE3LjQ5Ni4xOTMgNS42OSAwIDExLjI5Ni0uMDU2IDE2Ljc0OS0uMTkzIDUuNDQtLjEyMSAxMS4wMjgtLjU0NyAxNi43MzYtMS4yOTJ2NC40MzRjLTYuOTQ1Ljk5My0xMy43MDYgNS4yNC0yMC4yODEgMTIuNzQ4LTYuNTY3IDcuNTI4LTEyLjYzIDE2LjA5NS0xOC4yMTMgMjUuNzA4LTUuNTk2IDkuNjA4LTEwLjUxIDE5LjAzNi0xNC43MTkgMjguMjY1LTQuMjExIDkuMjQ2LTcuNDM3IDE2LjA5Mi05LjY3NiAyMC41MzQtMTAuMzk4IDIxLjQyNi0xOS44NDUgMzkuNzkxLTI4LjI3NyA1NS4wNy04LjQzNyAxNS4yODQtMTYuMDcgMjguMDQyLTIyLjg4MyAzOC4yNi02LjgyNyAxMC4yMzktMTMuMDMzIDE4LjMxMi0xOC42MDMgMjQuMjItNS41NzggNS45MjktMTAuOTE5IDEwLjQxMS0xNi4wMDkgMTMuNDktNS4wODMgMy4wODYtMTAuMDQ0IDUuMDQ3LTE0Ljg2NyA1LjkyNC00LjgzNi44NTYtOS44NjUgMS4yOS0xNS4wODYgMS4yOS00LjQ2MyAwLTguODU4LS42MjYtMTMuMjAxLTEuODUyLTQuMzM4LTEuMjMxLTguMTk1LTMuMTM5LTExLjUyOC01LjcyMS0zLjM2MS0yLjU5NS02LjA5Ni01Ljg2Ni04LjIxLTkuODAxLTIuMDg5LTMuOTYzLTMuMTUtOC42MjUtMy4xNS0xNC4wNSAwLTQuOTMxIDEuNzk2LTkuMzYgNS4zNzktMTMuMzAyIDMuNjEyLTMuOTQ1IDcuODgxLTUuOTI0IDEyLjg1OS01LjkyNCA1LjcwMyAwIDEwLjI3NiAxLjQxOSAxMy43NjIgNC4yNTkgMy40NzQgMi44MjMgNS4xOTggNy4yMDEgNS4xOTggMTMuMTI1IDAgNC4xNzgtLjk5NSA3LjY5NS0yLjk3NiAxMC41MzMtMS45NzYgMi44MjUtMi45NjkgNC44NjItMi45NjkgNi4wOTcgMCAxLjQ4MiAxLjc5OCAyLjQwMiA1LjQwMiAyLjc4IDMuNTkxLjM2MiA3LjExOC41NDUgMTAuNjA3LjU0NSA3LjQyNyAwIDE0Ljc1NC0zLjAyIDIxLjkzNy05LjA1OCA3LjE5NS02LjAzIDEzLjU3OS0xMi45MzIgMTkuMTU5LTIwLjY4NiA1LjU5OC03Ljc2OSAxMC4xMTgtMTUuMTc1IDEzLjU5OS0yMi4xODQgMy40ODEtNy4wMjEgNS4yMDMtMTEuNTMxIDUuMjAzLTEzLjUgMC0uNzQyLS44NjctMy4yNzQtMi41OTQtNy41NzktMS43NTItNC4zMDctNC4xMDEtOS44NTEtNy4wNjUtMTYuNjQ3LTIuOTkyLTYuNzY4LTYuMzQtMTQuMzI5LTEwLjA1OS0yMi43Mi0zLjcxNi04LjM4Ny03LjQzNS0xNi43LTExLjE0OC0yNC45NTUtMy43MjYtOC4yNTUtNy40NS0xNi4yNjctMTEuMTg5LTI0LjAzMS0zLjcwOC03Ljc1OS02LjkzMi0xNC4zNTctOS42NjktMTkuNzc0LTIuNDc0LTUuNjUzLTQuNTg4LTEwLjIyOS02LjMyMy0xMy42ODUtMS43MzktMy40NDgtMy44NDktNi4yMi02LjMxNS04LjMxNi0yLjQ3OS0yLjA5MS01LjQ2OC0zLjc1My04LjkzNC00Ljk4OS0zLjQ3OS0xLjIyOS04LjA3Mi0yLjU4Mi0xMy43NjctNC4wNjl2LTQuNDM5aC4wMDJsLS4wMDEuMDAxeiIgaWQ9IlNoYXBlIiBmaWxsPSIjMDBCMEU5Ii8+PHBhdGggZD0iTTM0Ni4wNDQgMTI5Ljk4MmMwIDEyLjgyNiAxLjY4MyAyMy40MTcgNS4wMDIgMzEuODA5IDMuMzc5IDguMzY5IDcuNTg1IDE1LjAzIDEyLjY5MSAxOS45NDkgNS4wNyA0Ljk0MSAxMC41MTYgOC4zOSAxNi4zNTQgMTAuMzUxIDUuODMzIDEuOTc2IDM2LjA0OCAxLjMgNDQuNDU3LTIuMDI0IDguNDQ1LTMuMzI0IDE2LjI1OS04LjU2OSAyMy40NjQtMTUuNzEybDYuMzE1IDUuOTE0Yy0xMC4xNjEgMTAuODQ1LTIwLjU5IDE5LjEtMzEuMjUzIDI0Ljc2NS0xMC42NjkgNS42NjYtMjMuNDQ0IDguNTA2LTM4LjMyOCA4LjUwNi0xMC42ODEgMC0yMC4yMjMtMi4wOTgtMjguNjU5LTYuMjkyLTguNDM3LTQuMTc2LTE1LjYyNC05LjczLTIxLjU4Mi0xNi42MzctNS45NDUtNi44OTItMTAuNDY3LTE0Ljc5LTEzLjU3Ni0yMy42NTgtMy4xMTItOC44NjEtNC42NDktMTcuOTktNC42NDktMjcuMzU4IDAtOS4zNTcgMS41NC0xOC40ODQgNC42NDktMjcuMzQ3IDMuMTA5LTguODczIDcuNjMxLTE2Ljc2MSAxMy41NzYtMjMuNjU4IDUuOTU4LTYuOTA0IDEzLjE0NS0xMi40NDkgMjEuNTgyLTE2LjY0MiA4LjQ0LTQuMTgzIDE3Ljk3OC02LjI4OSAyOC42NTktNi4yODkgMTkuNTg4IDAgMzUuMzU3IDUuMjk4IDQ3LjI3NSAxNS45IDExLjg5MyAxMC42MDYgMTkuMTk1IDI2Ljc0OSAyMS45MzcgNDguNDIzaC0xMDcuOTEyem03Mi41NzYtMTEuMDc4Yy0uNzY4LTYuNjU2LTEuNzU1LTEyLjYyOC0yLjk5Ny0xNy45MzQtMS4yMzUtNS4zLTMuMjIxLTkuNzI3LTUuOTM1LTEzLjMwMi0yLjc2LTMuNTc1LTYuMzU2LTYuMjg0LTEwLjc5Ni04LjEzMS00LjQ4MS0xLjg1NS0xMC4xNzktMi43ODUtMTcuMTIxLTIuNzg1LTUuMTk4IDAtOS45OTMgMS4zMS0xNC4zMjggMy44OS00LjM1MSAyLjU4LTguMDYgNS45MTEtMTEuMTYzIDkuOTc4LTMuMTA2IDQuMDY5LTUuNDczIDguNjI1LTcuMDgzIDEzLjY4LTEuNjE0IDUuMDU1LTIuNDA4IDkuOTI1LTIuNDA4IDE0LjYwNWg3MS44MzF6IiBmaWxsPSIjMDBCMEU5Ii8+PHBhdGggZD0iTTQ0My42NzggODMuMDR2LTUuOTE2YzcuOTM0LS4yMzggMTQuNzUyLTIuMjA5IDIwLjQ4My01LjkxMSA1LjcwOC0zLjcgMTAuNjQzLTguMzgyIDE0Ljg2Ny0xNC4wNSA0LjIyOS01LjY2NiA3Ljc0OC0xMS45NTIgMTAuNjA3LTE4Ljg1NCAyLjg0Ni02Ljg5MiA1LjM5NC0xMy41NDMgNy42MzktMTkuOTU5aDUuMTg4djUzLjU5OGg1MC45ODl2MTEuMDkzaC01MC45ODZ2ODYuMTI5YzAgMy4yMS4yMDQgNi4zNS41NzYgOS40MzMuMzYyIDMuMDg0IDEuMTEyIDUuODU4IDIuMjI0IDguMzE2IDEuMTE3IDIuNDYzIDIuNzI0IDQuNDQyIDQuODM2IDUuOTE0IDIuMTE0IDEuNDg1IDUuMDMyIDIuMjI1IDguNzUxIDIuMjI1IDcuNDUgMCAxMy42NTItMS42MDQgMTguNTk2LTQuODAxIDQuOTc2LTMuMjEzIDkuOTI0LTcuMjcgMTQuOTEtMTIuMjEzbDMuMzQzIDMuNjk3Yy00LjIzNCAzLjcwMi04LjMzIDcuNDY1LTEyLjI3OCAxMS4yNjgtMy45NzkgMy44NDEtOC4xMzMgNy4yODctMTIuNDU0IDEwLjM2Ni00LjM1NCAzLjA4NC05LjA2NyA1LjU0MS0xNC4xNTUgNy4zODEtNS4xMDYgMS44NTUtMTAuNjAyIDIuNzg3LTE2LjU3IDIuNzg3LTEwLjQyNCAwLTE3LjQ4Ni0zLjE0Ny0yMS4yMDctOS40MzEtMy43MjktNi4yODktNS41OS0xMy43NDMtNS41OS0yMi4zNzF2LTk4LjdoLTI5Ljc2NnoiIGZpbGw9IiMwMEIwRTkiLz48L2c+PC9zdmc+",
+        lift: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjI2IiBoZWlnaHQ9IjMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczpza2V0Y2g9Imh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaC9ucyI+PHRpdGxlPlVudGl0bGVkIDM8L3RpdGxlPjxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPjxnIHNrZXRjaDp0eXBlPSJNU1NoYXBlR3JvdXAiIGZpbGw9Im5vbmUiPjxwYXRoIGQ9Ik0yNjIuMzM3IDI4My44NjVjLTMuNjE5LTEuMjgtNi40MTctMy4yMDUtOC4zMzctNS43MTMtMS45MzctMi41MTItMy4xNjItNi4wOTMtMy42NC0xMC42NTItLjUxMi00LjkyOS0uNzc4LTExLjMyOC0uNzc4LTE5LjAxNnYtMjQ1LjM3bC02NC40MDQgNy45Mjd2MTAuMDk5aDIuNzgzYzEzLjc1NyAwIDE4Ljc5OSAyLjgwNCAyMC42MTQgNS4xNTMgMi44IDMuNjQyIDQuMjE5IDEwLjQzOSA0LjIxOSAyMC4yMTR2MjAxLjk3OGMwIDcuNjI1LS4yNjIgMTQuMDI2LS43ODUgMTkuMDE2LS40ODQgNC41OTMtMS42NTQgOC4xOTctMy40ODMgMTAuNzItMS44MjEgMi41MTgtNC40MDcgNC4zNjktNy45MTQgNS42NTYtMy43NDUgMS4zODItOC44ODIgMi4zNDUtMTUuMjcxIDIuODU4bC0yLjU2MS4yMDF2MTAuNDE4bDIuOTg0LS4yMTNjNy4zNDctLjUzMiAxNC43ODctLjkzNCAyMi4xMTctMS4xOTggMTQuMzA5LS41MzcgMzEuMjczLS41MjYgNDYuNjM5IDAgOC4xMDQuMjYyIDE2LjA4NC42NjUgMjMuNzEgMS4xOThsMi45NzguMjA3di0xMC40MjhsLTIuNTc2LS4xOWMtNi45MjgtLjUxNS0xMi40MS0xLjQ3Ny0xNi4yOTEtMi44NjUiIGlkPSJTaGFwZSIgZmlsbD0iIzAwQjBFOSIvPjxwYXRoIGQ9Ik0zNjkuMjIyIDI4NS4xNzNjLTMuNTU3LS43MTYtNi40NTctMS45NTgtOC42MzMtMy42ODctMi4wNzctMS42MzktMy41MjgtNC4wNTYtNC40NDgtNy40MDctLjk5Ni0zLjU4NS0xLjQ5Ny04LjY4My0xLjQ5Ny0xNS4xMzN2LTEyMS4yODJsLTY2LjQwNyA0LjM5NnYxMC43NDFsMi40NjYuMjg1YzYuNTQ2Ljc2MSAxMS43MzEgMi4xNDIgMTUuNDExIDQuMTExIDMuNTQgMS45MDEgNi4yMTEgNC4zMzUgNy45NDEgNy4yMjMgMS43NyAyLjk3IDIuODQ5IDYuNzU4IDMuMjA2IDExLjI2Ny4zOTUgNC44NjEuNTk2IDEwLjU0LjU5NiAxNi44NzR2NjYuMzhjMCA2LjQxNi0uNTA1IDExLjUxNC0xLjUwNCAxNS4xNDYtLjkwMSAzLjMwNi0yLjM1NCA1LjgxMi00LjMwMiA3LjQ0Ny0yLjA0MyAxLjcwNy00LjczNSAyLjkzNy04LjAwMyAzLjY0Mi0zLjY0Ljc3MS04LjA3IDEuMjk3LTEzLjE2MyAxLjU1MWwtMi42NS4xMjN2MTAuNTUxbDMuMDI4LS4yNjhjNi4wMjctLjUyNiAxMi4wNDgtLjkzNCAxNy44OTgtMS4xOTggNS42MDQtLjI2MiAxMS42MjEtLjM5NyAxNy44ODEtLjM5NyA5LjU3OCAwIDE5LjA0NC4xMzUgMjguMTM0LjQwNCA5LjQ2Mi4yNjIgMTguOTM0LjY3MiAyOC4xNDUgMS4xOThsMi45MzguMTczdi0xMC40NzNsLTIuNjU0LS4xMTJjLTUuNjM4LS4yNTgtMTAuNDc5LS43NzctMTQuMzg3LTEuNTU1IiBpZD0iU2hhcGUiIGZpbGw9IiMwMEIwRTkiLz48cGF0aCBkPSJNMzMyLjI0NiA2OS40MmM2LjYzOSAwIDEyLjM3Mi0yLjUyOSAxNy4wNDItNy41MjUgNC42MTktNC45NDYgNi45NjItMTAuODA0IDYuOTYyLTE3LjQgMC02LjYwNi0yLjM0My0xMi40NTgtNi45NjItMTcuNDExLTQuNjctNC45ODYtMTAuNDAxLTcuNTEzLTE3LjA0Mi03LjUxMy02LjY0NSAwLTEyLjM3MiAyLjUyOS0xNy4wMzEgNy41MTMtNC42MTkgNC45MzktNi45NjIgMTAuNzkyLTYuOTYyIDE3LjQxMSAwIDYuNjEzIDIuMzQzIDEyLjQ2NSA2Ljk1NiAxNy40IDQuNjYzIDQuOTk2IDEwLjM5IDcuNTI1IDE3LjAzNSA3LjUyNSIgaWQ9IlNoYXBlIiBmaWxsPSIjMzhBMUNGIi8+PHBhdGggZD0iTTYxOC42ODEgMjUzLjI1MWwtMi4wNzcgMi4wODdjLTUuMTkyIDUuMjE0LTEwLjQyNCA5LjU2Mi0xNS41NjEgMTIuOTA2LTQuODQ3IDMuMTcxLTExLjA2NSA0Ljc3OS0xOC40OTQgNC43NzktMy4zOTQgMC02LjAyMS0uNjM4LTcuNzk4LTEuODk3LTEuODc2LTEuMzMxLTMuMjcyLTMuMDY1LTQuMjc0LTUuMzA5LTEuMDgxLTIuNDA2LTEuODA4LTUuMTctMi4xNzYtOC4yMjktLjM4NS0zLjIyOC0uNTc5LTYuNTY4LS41NzktOS45MjV2LTk2LjE5NGg1NC44M3YtMTMuNDIyaC01NC44M3YtNjEuMTc3aC0xMC4zNjlsLS42NTEgMS44ODVjLTIuMzY0IDYuODY0LTUuMTAzIDE0LjEyNy04LjE0OSAyMS41NzktMi45NzEgNy4yNjEtNi42OTYgMTMuOTY1LTExLjA2OSAxOS45MTYtNC4xNjggNS42NjItMTEuODMzIDExLjU2OS0xOC42MzggMTQuMzYyLTYuMTcxIDIuNTM1LTEyLjE2IDMuMTYxLTIxLjA0OSAzLjQzNWgtMzguNTA3di02OC4yMDZjMC00LjQzNy40NjEtOS44NDcgMS4zODEtMTYuMDk2Ljg4LTYuMTIgMi42MTYtMTIuMDE3IDUuMTY0LTE3LjUyOSAyLjUtNS40MDQgNS43OTMtMTAuMDU4IDkuNzk2LTEzLjgyNSAzLjc1Ni0zLjU0NyA4LjYzMy01LjI3NSAxNC45MDMtNS4yNzUgNC4yOCAwIDcuOTM3LjgyOCAxMC44NDcgMi40NjEgMi45NjcgMS42NzMgNS4zNTUgMy43NjUgNy4wOTUgNi4yMjIgMS44MDQgMi41MzUgMy4wNzMgNS4xNDYgMy43NzkgNy43NjYuNzM0IDIuNjk2IDEuMTA4IDQuODg1IDEuMTA4IDYuNTAxIDAgOS4zNjUuOTE0IDE1LjEwNiAyLjg3MiAxOC4wNDkgMi4xMzggMy4yMjggNS43NDQgNC44NjggMTAuNzE4IDQuODY4IDcuMDMgMCAxMS43NzEtMS40ODcgMTQuNDgtNC41NTkgMi42MzMtMi45NjYgMy45MDYtNy45MTYgMy45MDYtMTUuMTMzIDAtMTIuMTM5LTQuODg3LTIxLjk2NS0xNC41MjEtMjkuMTk5LTkuMzk0LTcuMDQ0LTIwLjkzMS0xMC42MTQtMzQuMjg0LTEwLjYxNC0xMy42MTggMC0yNS4zNTUgMy41NjQtMzQuODcyIDEwLjYwMS05LjM0MyA2LjkwOC0xNy4wMDggMTUuNTk4LTIyLjc4NiAyNS44MTUtNS43MjcgMTAuMTQ5LTkuOTM0IDIxLjA5Ny0xMi41MDEgMzIuNTU2LTIuNjI3IDExLjY2NC0zLjg2OCAxOC4xNjctMy44NjggMjcuMzUzdjM4LjI0NmgtMTYuNDlsLTQuMTA3IDEzLjQyMmgyMC41OTd2OTcuODIzYzAgNS45OTgtLjIwMSAxMS40Ny0uNTkgMTYuMjYzLS4zNzIgNC4zOTYtMS40NTcgOC4yMDEtMy4yNDQgMTEuMzAxLTEuNzAyIDIuOTc3LTQuMjY0IDUuMzAzLTcuNjA3IDYuOTMyLTMuNTA2IDEuNzAxLTguNTg4IDIuNjkyLTE1LjA5NCAyLjkzN2wtMi42ODIuMTAxdjEwLjUwNmwyLjk1NC0uMTljOC40MDQtLjUzMiAxNi44NTgtLjkzNCAyNS4xMzMtMS4xOTggMTYuNjAyLS41NTQgMzUuOTc2LS41MDkgNTIuNjYgMCA5LjA2Ni4yNjIgMTguMzMyLjY3MiAyNy41MzggMS4xOThsMi45MzguMTczdi0xMC41MjNsLTIuNzE1LS4wNjhjLTEwLjYzNi0uMjUxLTE4LjkyOC0xLjI5Ny0yNC42NjEtMy4wOTMtNS40NTQtMS43MDEtOS41MjctNC4xMTgtMTIuMTA1LTcuMTg5LTIuNjE2LTMuMDg5LTQuMTc1LTYuNjk3LTQuNzc1LTExLjA0My0uNjQ1LTQuNjY3LS45NzUtMTAuMDgyLS45NzUtMTYuMTA3di05Ny44MjNoNzEuNjV2MTA5Ljg3NGMwIDkuODM1IDIuMTQyIDE4LjQ5NiA2LjM4OSAyNS43NTEgNC41MDkgNy43MjYgMTIuOTk2IDExLjYzNyAyNS4yMDUgMTEuNjM3IDYuNzEzIDAgMTMuMDMtMS4wNjkgMTguNzY3LTMuMTg0IDUuNjkzLTIuMDkyIDExLjAzMS00LjkxOCAxNS44NzItOC4zOTIgNC43OTItMy40NDYgOS40MTEtNy4zMjMgMTMuNzM2LTExLjUzNSA0LjIyMy00LjEyOCA4LjYzMy04LjIyNSAxMy4xMDItMTIuMThsMi4xMTUtMS44NjgtNy40NDYtOC4zMiIgZmlsbD0iIzAwQjBFOSIvPjxwYXRoIGQ9Ik02MS43MS45MTVoMzYuMTJsNjAuMjAyIDEzNS4yMDdoLTQyLjA3NWwtMzUuODE5LTg2LjE4Ny0zOC4yNTYgODYuMTg3aC00Mi4zMDRsNjIuMTMzLTEzNS4yMDciIGZpbGw9IiNFRTA3ODgiLz48L2c+PC9zdmc+",
+        seaworthy: "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+DQo8c3ZnIHdpZHRoPSIzNnB4IiBoZWlnaHQ9IjM2cHgiIHZpZXdCb3g9IjAgMCAzNiAzNiIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4bWxuczpza2V0Y2g9Imh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaC9ucyI+DQogICAgPCEtLSBHZW5lcmF0b3I6IFNrZXRjaCAzLjIuMiAoOTk4MykgLSBodHRwOi8vd3d3LmJvaGVtaWFuY29kaW5nLmNvbS9za2V0Y2ggLS0+DQogICAgPHRpdGxlPlVudGl0bGVkIDI8L3RpdGxlPg0KICAgIDxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPg0KICAgIDxkZWZzPjwvZGVmcz4NCiAgICA8ZyBpZD0iUGFnZS0xIiBzdHJva2U9Im5vbmUiIHN0cm9rZS13aWR0aD0iMSIgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIiBza2V0Y2g6dHlwZT0iTVNQYWdlIj4NCiAgICAgICAgPGcgaWQ9IkltcG9ydGVkLUxheWVycyIgc2tldGNoOnR5cGU9Ik1TTGF5ZXJHcm91cCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMS4wMDAwMDAsIDEuMDAwMDAwKSI+DQogICAgICAgICAgICA8cGF0aCBkPSJNMjUuNTYwMzczLDIwLjY2MjQ2NTggTDIyLjg2OTkzMDEsMTYuMjE1MDY4NSBDMjIuODQ4OTUxLDE2LjE4MDU0NzkgMjIuODEyMTIxMiwxNi4xNTg5NzI2IDIyLjc3MjQ5NDIsMTYuMTU3NTM0MiBDMjIuNzMxMDAyMywxNi4xNTg5NzI2IDIyLjY5NDYzODcsMTYuMTc2MjMyOSAyMi42NzIyNjExLDE2LjIwOTc5NDUgTDE5LjY1Njg3NjUsMjAuNjcwMTM3IEMxOS42MjY1NzM0LDIwLjcxNDcyNiAxOS42Mjg0MzgyLDIwLjc3MzY5ODYgMTkuNjYxNTM4NSwyMC44MTU4OTA0IEMxOS42ODQ4NDg1LDIwLjg0NTEzNyAxOS43MTg4ODExLDIwLjg2MTQzODQgMTkuNzUzODQ2MiwyMC44NjE0Mzg0IEMxOS43NjkyMzA4LDIwLjg2MTQzODQgMTkuNzg0NjE1NCwyMC44NTg1NjE2IDE5Ljc5OTA2NzYsMjAuODUyMzI4OCBMMjEuMjk1MTA0OSwyMC4yMTY1NzUzIEMyMS4wODExMTg5LDIxLjc0Njk4NjMgMjAuMjgyMDUxMywyMi45NjkxMDk2IDE3Ljk2ODc2NDYsMjQuMDQ0NTIwNSBDMTcuNjM4MjI4NCwyNC4xOTc5NDUyIDE3LjAxNTg1MDgsMjQuMzQ1NjE2NCAxNi40MTM5ODYsMjQuNDg4OTcyNiBDMTUuNzM4NDYxNSwyNC42NDkxMDk2IDE1LjAyNzUwNTgsMjQuODE4ODM1NiAxNC4zNTg5NzQ0LDI1LjA1OTA0MTEgTDE0LjM1ODk3NDQsMTYuNDkyMTkxOCBDMTUuMDY1MjY4MSwxNi4zODQ3OTQ1IDE1LjY4MjUxNzUsMTYuMjgyMTkxOCAxNi4yMDk3OTAyLDE2LjE4MzkwNDEgQzE2Ljc0NDk4ODMsMTYuMDg1MTM3IDE3LjE5NTMzOCwxNS45ODI1MzQyIDE3LjU2MTMwNTQsMTUuODc2MDk1OSBMMTguMDM2MzYzNiwxMy4xOTgzNTYyIEMxNy41Nzc2MjI0LDEzLjMwOTEwOTYgMTYuNDA5NzkwMiwxMy40ODMxNTA3IDE1LjkzNzk5NTMsMTMuNTcxODQ5MyBDMTUuNDY1MjY4MSwxMy42NjI0NjU4IDE0Ljk3Mjk2MDQsMTMuNzQ0NDUyMSAxNC40NjE1Mzg1LDEzLjgyMDY4NDkgTDE0LjM1ODk3NDQsMTMuODM3NDY1OCBMMTQuMzU4OTc0NCw4LjYxMzM1NjE2IEMxNS43NTM4NDYyLDguNjQ4MzU2MTYgMTYuODEzNTE5OCw4LjU2MDEzNjk5IDE3LjUzMzc5OTUsOC4zNDQ4NjMwMSBDMTguMjc1OTkwNyw4LjEzMDU0Nzk1IDE4Ljg5Mjc3MzksNy43MTI0NjU3NSAxOS4zODQxNDkyLDcuMDkyMDU0NzkgQzIwLjA5NjUwMzUsNi4xOTI2MDI3NCAyMC4zNzE1NjE4LDUuMTg1NzUzNDIgMjAuMjExNjU1LDQuMDY5NTg5MDQgQzIwLjA1MTI4MjEsMi45NTQ4NjMwMSAxOS40OTE4NDE1LDEuOTk1OTU4OSAxOC41MzE5MzQ3LDEuMTkyMzk3MjYgQzE3LjU0MzEyMzUsMC4zNjM5MDQxMSAxNi40OTI3NzM5LC0wLjAwOTEwOTU4OTA0IDE1LjM4MzY4MywwLjA3MzM1NjE2NDQgQzE0LjI4NzY0NTcsMC4xNjU4OTA0MTEgMTMuMzU1MjQ0OCwwLjY5NTY4NDkzMiAxMi41ODg4MTEyLDEuNjYzNjk4NjMgQzExLjgxMjEyMTIsMi42NDQ2NTc1MyAxMS40ODUzMTQ3LDQuMDI2OTE3ODEgMTEuNjA2OTkzLDUuODExNDM4MzYgQzExLjUxODg4MTEsNS44MDk1MjA1NSAxMS40NDk0MTcyLDUuODA4MDgyMTkgMTEuMzk5NTMzOCw1LjgwNzEyMzI5IEMxMS4zNTAxMTY2LDUuODA3NjAyNzQgMTEuMzE2MDgzOSw1LjgwNTY4NDkzIDExLjI5OTMwMDcsNS44MDEzNjk4NiBMOS44NzY5MjMwOCw1LjY3NzY3MTIzIEM3Ljc4NTA4MTU5LDUuNTA1MDY4NDkgNi4xNzI0OTQxNyw2LjEzNjAyNzQgNS4wMzcyOTYwNCw3LjU2OTU4OTA0IEM0LjA4NDM4MjI4LDguNzczMDEzNyAzLjcwNTM2MTMxLDEwLjEzODAxMzcgMy45MDIwOTc5LDExLjY2NDEwOTYgQzQuMTE5ODEzNTIsMTMuMjAwMjc0IDQuODQ4NDg0ODUsMTQuNDg1Njg0OSA2LjA4NTc4MDg5LDE1LjUyMjI2MDMgQzcuNDUzNjEzMDUsMTYuNjY3NjcxMiA5LjI5OTc2NjksMTcuMTAyNTM0MiAxMS42MjMzMSwxNi44MzIxMjMzIEwxMS42MjMzMSwyNS4wODkyNDY2IEMxMC45MjkxMzc1LDI0LjgzMTc4MDggMTAuMTg2MDE0LDI0LjY1NDg2MyA5LjQ4MTExODg4LDI0LjQ4ODAxMzcgQzguODc5NzIwMjgsMjQuMzQ1NjE2NCA4LjI1NzgwODg2LDI0LjE5Nzk0NTIgNy45Mjc3Mzg5MywyNC4wNDQ1MjA1IEM1LjU1MjQ0NzU1LDIyLjk0MDM0MjUgNC43MDMwMzAzLDIxLjc4NTM0MjUgNC40NjAxMzk4NiwyMC4zODk2NTc1IEw1LjkzODkyNzc0LDIxLjAxODIxOTIgQzUuOTUzODQ2MTUsMjEuMDI0NDUyMSA1Ljk2ODc2NDU3LDIxLjAyNzMyODggNS45ODQxNDkxOCwyMS4wMjczMjg4IEM2LjAxOTExNDIyLDIxLjAyNzMyODggNi4wNTM2MTMwNSwyMS4wMTE1MDY4IDYuMDc2NDU2ODgsMjAuOTgyMjYwMyBDNi4xMDk1NTcxMSwyMC45NDAwNjg1IDYuMTExNDIxOTEsMjAuODgwNjE2NCA2LjA4MTU4NTA4LDIwLjgzNjAyNzQgTDMuMDY1NzM0MjcsMTYuMzc1Njg0OSBDMy4wNDI4OTA0NCwxNi4zNDI2MDI3IDMuMDAwNDY2MiwxNi4zMjE5ODYzIDIuOTY1NTAxMTcsMTYuMzIzNDI0NyBDMi45MjU4NzQxMywxNi4zMjQ4NjMgMi44ODkwNDQyOSwxNi4zNDY0Mzg0IDIuODY4MDY1MjcsMTYuMzgwOTU4OSBMMC4xNzc2MjIzNzgsMjAuODI4MzU2MiBDMC4xNTA1ODI3NTEsMjAuODczNDI0NyAwLjE1NDc3ODU1NSwyMC45MzE0Mzg0IDAuMTg3ODc4Nzg4LDIwLjk3MTcxMjMgQzAuMjIwOTc5MDIxLDIxLjAxMjQ2NTggMC4yNzY0NTY4NzYsMjEuMDI0OTMxNSAwLjMyNDAwOTMyNCwyMS4wMDUyNzQgTDEuNzAzOTYyNywyMC40MTE3MTIzIEMyLjAyNTE3NDgzLDIzLjE5NTQxMSAzLjYzMTcwMTYzLDI1LjEzNTI3NCA2LjgwMDkzMjQsMjYuNjA4MTUwNyBDNy4zNzkwMjA5OCwyNi44NzcxMjMzIDguMTAyMDk3OSwyNy4wNDgyODc3IDguODY3MTMyODcsMjcuMjI5NTIwNSBDOS44MDEzOTg2LDI3LjQ1MDU0NzkgMTEuMzY1MDM1LDI3LjgyMTE2NDQgMTEuNjc2OTIzMSwyOC4zMjk4NjMgQzExLjkzMTAwMjMsMjguNzQ0NTg5IDEyLjM1MTA0OSwyOS4wMDAxMzcgMTIuODA1NTk0NCwyOS4wMjc5NDUyIEMxMi44MTc3MTU2LDI5LjAyOTg2MyAxMi44MzAzMDMsMjkuMDMxMzAxNCAxMi44NDI0MjQyLDI5LjAzMzIxOTIgQzEyLjg5ODgzNDUsMjkuMDM5OTMxNSAxMi45NTQzMTI0LDI5LjA0MzI4NzcgMTMuMDA5NzkwMiwyOS4wNDMyODc3IEMxMy40OTgzNjgzLDI5LjA0MzI4NzcgMTMuOTUwNTgyOCwyOC43ODE1MDY4IDE0LjIxNzI0OTQsMjguMzMzNjk4NiBDMTQuNTE5MzQ3MywyNy44MjU5NTg5IDE2LjA5MDQ0MjksMjcuNDUyOTQ1MiAxNy4wMjkzNzA2LDI3LjIzMDQ3OTUgQzE3Ljc5NDg3MTgsMjcuMDQ4Mjg3NyAxOC41MTc0ODI1LDI2Ljg3NjY0MzggMTkuMDk1NTcxMSwyNi42MDgxNTA3IEMyMi4xODQxNDkyLDI1LjE3MjY3MTIgMjMuNzQxMjU4NywyMy4xODI5NDUyIDI0LjA0MDA5MzIsMjAuMjQ4MjE5MiBMMjUuNDEzOTg2LDIwLjgzOTM4MzYgQzI1LjQ2MDYwNjEsMjAuODU5NTIwNSAyNS41MTY1NTAxLDIwLjg0NjA5NTkgMjUuNTUwMTE2NiwyMC44MDU4MjE5IEMyNS41ODMyMTY4LDIwLjc2NTU0NzkgMjUuNTg3NDEyNiwyMC43MDc1MzQyIDI1LjU2MDM3MywyMC42NjI0NjU4IEwyNS41NjAzNzMsMjAuNjYyNDY1OCBaIE0xNC43NDU0NTQ1LDMuMDgzODM1NjIgQzE1LjAzMDMwMywyLjcyMzc2NzEyIDE1LjM5MzkzOTQsMi41Mzg2OTg2MyAxNS44MzU0MzEyLDIuNTI1NzUzNDIgQzE2LjI4NjcxMzMsMi41MDEzMDEzNyAxNi43MDIwOTc5LDIuNjQ3NTM0MjUgMTcuMDgyMDUxMywyLjk2NTg5MDQxIEMxNy40OTgzNjgzLDMuMzE0NDUyMDUgMTcuNzM2NTk2NywzLjcxMDk1ODkgMTcuNzk3NjY5LDQuMTUzOTcyNiBDMTcuODU3ODA4OSw0LjU5NzQ2NTc1IDE3LjczODQ2MTUsNS4wMDc4NzY3MSAxNy40Mzg2OTQ2LDUuMzg2NjQzODQgQzE3LjE3Mzg5MjgsNS43MjA4MjE5MiAxNi44NTg3NDEzLDUuOTI4NDI0NjYgMTYuNDk2OTY5Nyw2LjAwNTYxNjQ0IEMxNi4zMTg4ODExLDYuMDUzMDgyMTkgMTYuMDY1MjY4MSw2LjA4MDg5MDQxIDE1LjczNzA2MjksNi4wOSBDMTUuNDA5MzI0LDYuMDk4NjMwMTQgMTUuMDA2MDYwNiw2LjA5NDc5NDUyIDE0LjUyOTEzNzUsNi4wNzU2MTY0NCBMMTQuMjU0MDc5Myw2LjA2MjY3MTIzIEMxNC4yNDgwMTg2LDUuOTU1MjczOTcgMTQuMjQ5NDE3Miw1Ljg3ODA4MjE5IDE0LjI1NTQ3NzksNS44MzE1NzUzNCBMMTQuMjQ2NjIsNC43NDA4MjE5MiBDMTQuMjQ1MjIxNCw0LjA1ODA4MjE5IDE0LjQxMTE4ODgsMy41MDYyMzI4OCAxNC43NDU0NTQ1LDMuMDgzODM1NjIgTDE0Ljc0NTQ1NDUsMy4wODM4MzU2MiBaIE03LjUzNDI2NTczLDEzLjQ4MzYzMDEgQzYuOTU0MzEyMzUsMTIuOTk3OTQ1MiA2LjYxMjU4NzQxLDEyLjMxNDI0NjYgNi41MDg2MjQ3MSwxMS40MzIwNTQ4IEM2LjQzNjgyOTg0LDEwLjU0NzQ2NTggNi42MzcyOTYwNCw5LjgwNzE5MTc4IDcuMTA5MDkwOTEsOS4yMTEyMzI4OCBDNy40MzgyMjg0NCw4Ljc5NjAyNzQgNy45MDM5NjI3LDguNTI5OTMxNTEgOC41MDY3NTk5MSw4LjQxNDg2MzAxIEM5LjExNDY4NTMxLDguMzA2MDI3NCAxMC4wOTMyNDAxLDguMzA2MDI3NCAxMS40NDI4OTA0LDguNDEzOTA0MTEgTDExLjYyMzMxLDguNDI4Mjg3NjcgTDExLjYyMzMxLDE0LjE5NjA5NTkgQzkuNzA4MTU4NTEsMTQuMzk5MzgzNiA4LjM0NDA1NTk0LDE0LjE2MTU3NTMgNy41MzQyNjU3MywxMy40ODM2MzAxIEw3LjUzNDI2NTczLDEzLjQ4MzYzMDEgWiIgaWQ9IkZpbGwtMTAiIGZpbGw9IiNFQjAwOTEiIHNrZXRjaDp0eXBlPSJNU1NoYXBlR3JvdXAiPjwvcGF0aD4NCiAgICAgICAgICAgIDxwYXRoIGQ9Ik0yNS41NjAzNzMsMjAuNjYyNDY1OCBMMjIuODY5OTMwMSwxNi4yMTUwNjg1IEMyMi44NDg5NTEsMTYuMTgwNTQ3OSAyMi44MTIxMjEyLDE2LjE1ODk3MjYgMjIuNzcyNDk0MiwxNi4xNTc1MzQyIEMyMi43MzEwMDIzLDE2LjE1ODk3MjYgMjIuNjk0NjM4NywxNi4xNzYyMzI5IDIyLjY3MjI2MTEsMTYuMjA5Nzk0NSBMMTkuNjU2ODc2NSwyMC42NzAxMzcgQzE5LjYyNjU3MzQsMjAuNzE0NzI2IDE5LjYyODQzODIsMjAuNzczNjk4NiAxOS42NjE1Mzg1LDIwLjgxNTg5MDQgQzE5LjY4NDg0ODUsMjAuODQ1MTM3IDE5LjcxODg4MTEsMjAuODYxNDM4NCAxOS43NTM4NDYyLDIwLjg2MTQzODQgQzE5Ljc2OTIzMDgsMjAuODYxNDM4NCAxOS43ODQ2MTU0LDIwLjg1ODU2MTYgMTkuNzk5MDY3NiwyMC44NTIzMjg4IEwyMS4yOTUxMDQ5LDIwLjIxNjU3NTMgQzIxLjA4MTExODksMjEuNzQ2OTg2MyAyMC4yODIwNTEzLDIyLjk2OTEwOTYgMTcuOTY4NzY0NiwyNC4wNDQ1MjA1IEMxNy42MzgyMjg0LDI0LjE5Nzk0NTIgMTcuMDE1ODUwOCwyNC4zNDU2MTY0IDE2LjQxMzk4NiwyNC40ODg5NzI2IEMxNS43Mzg0NjE1LDI0LjY0OTEwOTYgMTUuMDI3NTA1OCwyNC44MTg4MzU2IDE0LjM1ODk3NDQsMjUuMDU5MDQxMSBMMTQuMzU4OTc0NCwxNi40OTIxOTE4IEMxNS4wNjUyNjgxLDE2LjM4NDc5NDUgMTUuNjgyNTE3NSwxNi4yODIxOTE4IDE2LjIwOTc5MDIsMTYuMTgzOTA0MSBDMTYuNzQ0OTg4MywxNi4wODUxMzcgMTcuMTk1MzM4LDE1Ljk4MjUzNDIgMTcuNTYxMzA1NCwxNS44NzYwOTU5IEwxOC4wMzYzNjM2LDEzLjE5ODM1NjIgQzE3LjU3NzYyMjQsMTMuMzA5MTA5NiAxNi40MDk3OTAyLDEzLjQ4MzE1MDcgMTUuOTM3OTk1MywxMy41NzE4NDkzIEMxNS40NjUyNjgxLDEzLjY2MjQ2NTggMTQuOTcyOTYwNCwxMy43NDQ0NTIxIDE0LjQ2MTUzODUsMTMuODIwNjg0OSBMMTQuMzU4OTc0NCwxMy44Mzc0NjU4IEwxNC4zNTg5NzQ0LDguNjEzMzU2MTYgQzE1Ljc1Mzg0NjIsOC42NDgzNTYxNiAxNi44MTM1MTk4LDguNTYwMTM2OTkgMTcuNTMzNzk5NSw4LjM0NDg2MzAxIEMxOC4yNzU5OTA3LDguMTMwNTQ3OTUgMTguODkyNzczOSw3LjcxMjQ2NTc1IDE5LjM4NDE0OTIsNy4wOTIwNTQ3OSBDMjAuMDk2NTAzNSw2LjE5MjYwMjc0IDIwLjM3MTU2MTgsNS4xODU3NTM0MiAyMC4yMTE2NTUsNC4wNjk1ODkwNCBDMjAuMDUxMjgyMSwyLjk1NDg2MzAxIDE5LjQ5MTg0MTUsMS45OTU5NTg5IDE4LjUzMTkzNDcsMS4xOTIzOTcyNiBDMTcuNTQzMTIzNSwwLjM2MzkwNDExIDE2LjQ5Mjc3MzksLTAuMDA5MTA5NTg5MDQgMTUuMzgzNjgzLDAuMDczMzU2MTY0NCBDMTQuMjg3NjQ1NywwLjE2NTg5MDQxMSAxMy4zNTUyNDQ4LDAuNjk1Njg0OTMyIDEyLjU4ODgxMTIsMS42NjM2OTg2MyBDMTEuODEyMTIxMiwyLjY0NDY1NzUzIDExLjQ4NTMxNDcsNC4wMjY5MTc4MSAxMS42MDY5OTMsNS44MTE0MzgzNiBDMTEuNTE4ODgxMSw1LjgwOTUyMDU1IDExLjQ0OTQxNzIsNS44MDgwODIxOSAxMS4zOTk1MzM4LDUuODA3MTIzMjkgQzExLjM1MDExNjYsNS44MDc2MDI3NCAxMS4zMTYwODM5LDUuODA1Njg0OTMgMTEuMjk5MzAwNyw1LjgwMTM2OTg2IEw5Ljg3NjkyMzA4LDUuNjc3NjcxMjMgQzcuNzg1MDgxNTksNS41MDUwNjg0OSA2LjE3MjQ5NDE3LDYuMTM2MDI3NCA1LjAzNzI5NjA0LDcuNTY5NTg5MDQgQzQuMDg0MzgyMjgsOC43NzMwMTM3IDMuNzA1MzYxMzEsMTAuMTM4MDEzNyAzLjkwMjA5NzksMTEuNjY0MTA5NiBDNC4xMTk4MTM1MiwxMy4yMDAyNzQgNC44NDg0ODQ4NSwxNC40ODU2ODQ5IDYuMDg1NzgwODksMTUuNTIyMjYwMyBDNy40NTM2MTMwNSwxNi42Njc2NzEyIDkuMjk5NzY2OSwxNy4xMDI1MzQyIDExLjYyMzMxLDE2LjgzMjEyMzMgTDExLjYyMzMxLDI1LjA4OTI0NjYgQzEwLjkyOTEzNzUsMjQuODMxNzgwOCAxMC4xODYwMTQsMjQuNjU0ODYzIDkuNDgxMTE4ODgsMjQuNDg4MDEzNyBDOC44Nzk3MjAyOCwyNC4zNDU2MTY0IDguMjU3ODA4ODYsMjQuMTk3OTQ1MiA3LjkyNzczODkzLDI0LjA0NDUyMDUgQzUuNTUyNDQ3NTUsMjIuOTQwMzQyNSA0LjcwMzAzMDMsMjEuNzg1MzQyNSA0LjQ2MDEzOTg2LDIwLjM4OTY1NzUgTDUuOTM4OTI3NzQsMjEuMDE4MjE5MiBDNS45NTM4NDYxNSwyMS4wMjQ0NTIxIDUuOTY4NzY0NTcsMjEuMDI3MzI4OCA1Ljk4NDE0OTE4LDIxLjAyNzMyODggQzYuMDE5MTE0MjIsMjEuMDI3MzI4OCA2LjA1MzYxMzA1LDIxLjAxMTUwNjggNi4wNzY0NTY4OCwyMC45ODIyNjAzIEM2LjEwOTU1NzExLDIwLjk0MDA2ODUgNi4xMTE0MjE5MSwyMC44ODA2MTY0IDYuMDgxNTg1MDgsMjAuODM2MDI3NCBMMy4wNjU3MzQyNywxNi4zNzU2ODQ5IEMzLjA0Mjg5MDQ0LDE2LjM0MjYwMjcgMy4wMDA0NjYyLDE2LjMyMTk4NjMgMi45NjU1MDExNywxNi4zMjM0MjQ3IEMyLjkyNTg3NDEzLDE2LjMyNDg2MyAyLjg4OTA0NDI5LDE2LjM0NjQzODQgMi44NjgwNjUyNywxNi4zODA5NTg5IEwwLjE3NzYyMjM3OCwyMC44MjgzNTYyIEMwLjE1MDU4Mjc1MSwyMC44NzM0MjQ3IDAuMTU0Nzc4NTU1LDIwLjkzMTQzODQgMC4xODc4Nzg3ODgsMjAuOTcxNzEyMyBDMC4yMjA5NzkwMjEsMjEuMDEyNDY1OCAwLjI3NjQ1Njg3NiwyMS4wMjQ5MzE1IDAuMzI0MDA5MzI0LDIxLjAwNTI3NCBMMS43MDM5NjI3LDIwLjQxMTcxMjMgQzIuMDI1MTc0ODMsMjMuMTk1NDExIDMuNjMxNzAxNjMsMjUuMTM1Mjc0IDYuODAwOTMyNCwyNi42MDgxNTA3IEM3LjM3OTAyMDk4LDI2Ljg3NzEyMzMgOC4xMDIwOTc5LDI3LjA0ODI4NzcgOC44NjcxMzI4NywyNy4yMjk1MjA1IEM5LjgwMTM5ODYsMjcuNDUwNTQ3OSAxMS4zNjUwMzUsMjcuODIxMTY0NCAxMS42NzY5MjMxLDI4LjMyOTg2MyBDMTEuOTMxMDAyMywyOC43NDQ1ODkgMTIuMzUxMDQ5LDI5LjAwMDEzNyAxMi44MDU1OTQ0LDI5LjAyNzk0NTIgQzEyLjgxNzcxNTYsMjkuMDI5ODYzIDEyLjgzMDMwMywyOS4wMzEzMDE0IDEyLjg0MjQyNDIsMjkuMDMzMjE5MiBDMTIuODk4ODM0NSwyOS4wMzk5MzE1IDEyLjk1NDMxMjQsMjkuMDQzMjg3NyAxMy4wMDk3OTAyLDI5LjA0MzI4NzcgQzEzLjQ5ODM2ODMsMjkuMDQzMjg3NyAxMy45NTA1ODI4LDI4Ljc4MTUwNjggMTQuMjE3MjQ5NCwyOC4zMzM2OTg2IEMxNC41MTkzNDczLDI3LjgyNTk1ODkgMTYuMDkwNDQyOSwyNy40NTI5NDUyIDE3LjAyOTM3MDYsMjcuMjMwNDc5NSBDMTcuNzk0ODcxOCwyNy4wNDgyODc3IDE4LjUxNzQ4MjUsMjYuODc2NjQzOCAxOS4wOTU1NzExLDI2LjYwODE1MDcgQzIyLjE4NDE0OTIsMjUuMTcyNjcxMiAyMy43NDEyNTg3LDIzLjE4Mjk0NTIgMjQuMDQwMDkzMiwyMC4yNDgyMTkyIEwyNS40MTM5ODYsMjAuODM5MzgzNiBDMjUuNDYwNjA2MSwyMC44NTk1MjA1IDI1LjUxNjU1MDEsMjAuODQ2MDk1OSAyNS41NTAxMTY2LDIwLjgwNTgyMTkgQzI1LjU4MzIxNjgsMjAuNzY1NTQ3OSAyNS41ODc0MTI2LDIwLjcwNzUzNDIgMjUuNTYwMzczLDIwLjY2MjQ2NTggTDI1LjU2MDM3MywyMC42NjI0NjU4IFogTTE0Ljc0NTQ1NDUsMy4wODM4MzU2MiBDMTUuMDMwMzAzLDIuNzIzNzY3MTIgMTUuMzkzOTM5NCwyLjUzODY5ODYzIDE1LjgzNTQzMTIsMi41MjU3NTM0MiBDMTYuMjg2NzEzMywyLjUwMTMwMTM3IDE2LjcwMjA5NzksMi42NDc1MzQyNSAxNy4wODIwNTEzLDIuOTY1ODkwNDEgQzE3LjQ5ODM2ODMsMy4zMTQ0NTIwNSAxNy43MzY1OTY3LDMuNzEwOTU4OSAxNy43OTc2NjksNC4xNTM5NzI2IEMxNy44NTc4MDg5LDQuNTk3NDY1NzUgMTcuNzM4NDYxNSw1LjAwNzg3NjcxIDE3LjQzODY5NDYsNS4zODY2NDM4NCBDMTcuMTczODkyOCw1LjcyMDgyMTkyIDE2Ljg1ODc0MTMsNS45Mjg0MjQ2NiAxNi40OTY5Njk3LDYuMDA1NjE2NDQgQzE2LjMxODg4MTEsNi4wNTMwODIxOSAxNi4wNjUyNjgxLDYuMDgwODkwNDEgMTUuNzM3MDYyOSw2LjA5IEMxNS40MDkzMjQsNi4wOTg2MzAxNCAxNS4wMDYwNjA2LDYuMDk0Nzk0NTIgMTQuNTI5MTM3NSw2LjA3NTYxNjQ0IEwxNC4yNTQwNzkzLDYuMDYyNjcxMjMgQzE0LjI0ODAxODYsNS45NTUyNzM5NyAxNC4yNDk0MTcyLDUuODc4MDgyMTkgMTQuMjU1NDc3OSw1LjgzMTU3NTM0IEwxNC4yNDY2Miw0Ljc0MDgyMTkyIEMxNC4yNDUyMjE0LDQuMDU4MDgyMTkgMTQuNDExMTg4OCwzLjUwNjIzMjg4IDE0Ljc0NTQ1NDUsMy4wODM4MzU2MiBMMTQuNzQ1NDU0NSwzLjA4MzgzNTYyIFogTTcuNTM0MjY1NzMsMTMuNDgzNjMwMSBDNi45NTQzMTIzNSwxMi45OTc5NDUyIDYuNjEyNTg3NDEsMTIuMzE0MjQ2NiA2LjUwODYyNDcxLDExLjQzMjA1NDggQzYuNDM2ODI5ODQsMTAuNTQ3NDY1OCA2LjYzNzI5NjA0LDkuODA3MTkxNzggNy4xMDkwOTA5MSw5LjIxMTIzMjg4IEM3LjQzODIyODQ0LDguNzk2MDI3NCA3LjkwMzk2MjcsOC41Mjk5MzE1MSA4LjUwNjc1OTkxLDguNDE0ODYzMDEgQzkuMTE0Njg1MzEsOC4zMDYwMjc0IDEwLjA5MzI0MDEsOC4zMDYwMjc0IDExLjQ0Mjg5MDQsOC40MTM5MDQxMSBMMTEuNjIzMzEsOC40MjgyODc2NyBMMTEuNjIzMzEsMTQuMTk2MDk1OSBDOS43MDgxNTg1MSwxNC4zOTkzODM2IDguMzQ0MDU1OTQsMTQuMTYxNTc1MyA3LjUzNDI2NTczLDEzLjQ4MzYzMDEgTDcuNTM0MjY1NzMsMTMuNDgzNjMwMSBaIiBpZD0iU3Ryb2tlLTExIiBzdHJva2U9IiNFQjAwOTEiIHN0cm9rZS13aWR0aD0iMS4wNTEiIHNrZXRjaDp0eXBlPSJNU1NoYXBlR3JvdXAiPjwvcGF0aD4NCiAgICAgICAgPC9nPg0KICAgIDwvZz4NCjwvc3ZnPg==",
+        talky: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDkxIiBoZWlnaHQ9IjMwNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczpza2V0Y2g9Imh0dHA6Ly93d3cuYm9oZW1pYW5jb2RpbmcuY29tL3NrZXRjaC9ucyI+PHRpdGxlPlVudGl0bGVkIDM8L3RpdGxlPjxkZXNjPkNyZWF0ZWQgd2l0aCBTa2V0Y2guPC9kZXNjPjxnIHNrZXRjaDp0eXBlPSJNU1NoYXBlR3JvdXAiIGZpbGw9Im5vbmUiPjxwYXRoIGQ9Ik0xNi4yMTEgMjMyLjMxMXYtNjMuNDY4aC0xNS4wNTV2LTIzLjc0M2gxNS4wNTV2LTMzLjEwM2gyNy4xODZ2MzMuMTAzaDMxLjkwNHYyMy43NDNoLTMxLjkwNHY1OS4xMzJjMCAxMC43MyA1LjM5MiAxNS4wNjcgMTQuNjA1IDE1LjA2NyA2LjA2NSAwIDExLjQ1OC0xLjM3MSAxNi44NS00LjExdjIyLjYwM2MtNi43MzkgMy44OC0xNC4zOCA2LjE2NC0yNC40ODkgNi4xNjQtMTkuOTk3IDAtMzQuMTUxLTguOTA3LTM0LjE1MS0zNS4zODh6bTE0NS4xIDMzLjMzMnYtMTQuODM5Yy04LjA4OCA5LjgxNy0yMC40NDcgMTcuMzUzLTM4LjQyMSAxNy4zNTMtMjIuNDY4IDAtNDIuMjQxLTEzLjAxNS00Mi4yNDEtMzcuMjEydi0uNDU4YzAtMjYuNzExIDIwLjQ0OC0zOS40OTQgNDguMDgzLTM5LjQ5NCAxNC4zOCAwIDIzLjU5MiAyLjA1MSAzMi44MDIgNS4wMTl2LTIuMjg0YzAtMTYuNjY1LTEwLjMzNi0yNS43OTctMjkuMjA5LTI1Ljc5Ny0xMy4yNTggMC0yMy4xNDMgMi45NjgtMzMuOTI4IDcuNTM1bC03LjQxNC0yMi4xNDhjMTMuMDMxLTUuOTMzIDI1LjgzOC0xMC4wNDQgNDUuMTYxLTEwLjA0NCAzNS4wNSAwIDUyLjEyNyAxOC43MjEgNTIuMTI3IDUwLjkxM3Y3MS40NmgtMjYuOTYxdi0uMDAzem0uNjc0LTUwLjQ1NWMtNi45NjYtMi43NC0xNi42MjYtNC43OTUtMjcuMTg2LTQuNzk1LTE3LjA3NSAwLTI3LjE4NiA3LjA3OS0yNy4xODYgMTguNzE5di40NThjMCAxMS40MTQgMTAuMTExIDE3LjgwOSAyMi45MTggMTcuODA5IDE3Ljk3NCAwIDMxLjQ1NS0xMC4yNzUgMzEuNDU1LTI1LjM0NGwtLjAwMi02Ljg0NnptNDYuMTc1LTExNi4yMDRoMjcuMTg3djE2Ni42NTloLTI3LjE4N3YtMTY2LjY1OXptNDcuNzAyIDBoMjcuMTg3djk5LjU0bDQ5LjIwNy01My40MjNoMzMuMDI2bC00Ny4xODEgNDkuMDgyIDQ4Ljc1NyA3MS40NjFoLTMxLjQ1NWwtMzUuNzI2LTUyLjA1My0xNi42MjYgMTcuNTc4djM0LjQ3MmgtMjcuMTg5di0xNjYuNjU4em0xMTguNTIyIDE5Ni41NjZsOS4yMTItMjAuNTQ4YzQuOTQ0IDIuNzM4IDEwLjMzNiA0LjU2NiAxNS45NTMgNC41NjYgNy42MzkgMCAxMi4zNTctMy40MjQgMTYuODUxLTEzLjkyN2wtNDkuNDMtMTIwLjU0aDI4Ljk4M2wzMy43MDMgODkuNDkzIDMwLjc4NC04OS40OTNoMjguMzA4bC00Ny4xODEgMTIzLjk2N2MtOS40MzcgMjQuNjU1LTE5Ljk5NyAzMy43ODctMzkuMDk2IDMzLjc4Ny0xMS40Ni4wMDItMTkuNzc1LTIuNzM3LTI4LjA4OC03LjMwNHoiIGZpbGw9IiMwMEIwRTkiLz48cGF0aCBkPSJNNDI5LjExIDEuMzYzYy0zNi4wNDYtMS4xMTctNjMuNTQ3IDI2LjMwMi02NC41MzggNjAuNDNsLS4wMjMuNDQ0Yy0uMzIyIDExLjM4NSAyLjM0NiAyMi4xNjIgNy4zOTEgMzEuNTA1LS4zNDUgOC42OTQtNy44NDIgMjEuMzctMTkuNDAxIDMwLjcxOCAyNC44NzIgNC40NTYgMzYuNjU1LTQuMzc2IDQzLjg2NC02LjE0NCA4LjIwNCA0LjgwOSAxOC4wNjEgNy4yMDggMjguNjA4IDcuNTM4IDM2LjI2OSAxLjEyOCA2My43NzgtMjYuMjg3IDY0Ljc3My02MC4xODhsLjAwOS0uNDY1Yy45ODYtMzQuMTEzLTI0LjY3LTYyLjcyMS02MC42ODUtNjMuODM3em0yOC41MDEgNjAuNjU1bC0zNy4yMDYgMzUuNzY3Yy0yLjczIDIuNjE0LTUuMzIxIDEuOTUtNS43OC0xLjQ3N2wtOC41MzItNjMuNzQ0Yy0uNDYxLTMuNDM4IDEuODY4LTQuNzY5IDUuMTgyLTIuOTgybDQ1LjI2NSAyNC40NDFjMy4yOTIgMS43ODIgMy43ODEgNS4zODIgMS4wNzIgNy45OTR6IiBmaWxsPSIjRUUwNzg4Ii8+PC9nPjwvc3ZnPg==",
+        x: "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIj8+PHN2ZyB3aWR0aD0iMzIwIiBoZWlnaHQ9IjMyMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCiA8dGl0bGU+QmFjayBYPC90aXRsZT4NCg0KIDxnPg0KICA8dGl0bGU+TGF5ZXIgMTwvdGl0bGU+DQogIDxnIGlkPSJsYXllcjEiPg0KICAgPHBhdGggZmlsbD0iIzAwOUZEMyIgZmlsbC1ydWxlPSJldmVub2RkIiBzdHJva2Utd2lkdGg9IjAuMTVwdCIgaWQ9InBhdGg0OTUwIiBkPSJtMTAwLDYwbC00MCw0MGwxNzAsMTcwbDQwLC00MGwtMTcwLC0xNzB6Ii8+DQogICA8cGF0aCBmaWxsPSIjMDA5RkQzIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIHN0cm9rZS13aWR0aD0iMC4xNXB0IiBpZD0icGF0aDQ5NTIiIGQ9Im02MCwyMzBsMTcwLC0xNzBsNDAsNDBsLTE3MCwxNzBsLTQwLC00MHoiLz4NCiAgPC9nPg0KIDwvZz4NCjwvc3ZnPg=="
+    }
+}, function(M, t, N) {
+    "use strict";
+
+    function u(M) {
+        return M && M.__esModule ? M : {
+            "default": M
+        }
+    }
+
+    function n() {
+        Q.x < 0 && (Q.x = 0, Q.vx = -Q.vx * C), Q.y < 0 && (Q.y = 0, Q.vy = -Q.vy * C), Q.x > T["default"].width - k && (Q.x = T["default"].width - k, Q.vx = -Q.vx * C), Q.y > T["default"].height - k && (Q.y = T["default"].height - k, Q.vy = -Q.vy * C)
+    }
+    var j = N(46),
+        e = u(j),
+        D = N(9),
+        i = (u(D), N(2)),
+        T = u(i),
+        r = N(21),
+        L = u(r),
+        y = N(14),
+        o = u(y),
+        g = N(18),
+        z = u(g),
+        c = N(17),
+        I = u(c),
+        a = N(1),
+        O = u(a),
+        x = N(11),
+        s = (u(x), N(10)),
+        A = u(s),
+        E = N(8),
+        w = u(E),
+        l = N(19),
+        f = u(l),
+        S = N(44),
+        d = u(S),
+        Q = (Array.prototype.slice, {
+            init: function() {
+                L["default"].bind(Q.el, "touchstart", Q.onTouchStart), L["default"].bind(Q.el, "touchmove", Q.onTouchMove), L["default"].bind(Q.el, "touchend", Q.onTouchEnd), L["default"].bind(Q.el, "click", Q.onClick), f["default"](), O["default"].runAnimation(Q.el, "rollbounce").then(Q.setPositionAsLeftByAnimation), console.log(T["default"].width, T["default"].height)
+            },
+            el: o["default"].main,
+            startTime: void 0,
+            x: 0,
+            y: 0,
+            vx: 0,
+            vy: 0,
+            ax: 0,
+            ay: 0,
+            touching: !1,
+            coords: [],
+            stopped: !0,
+            pause: !1,
+            centered: !1,
+            reset: function() {
+                Q.centered = !1
+            },
+            showBodies: function(M) {
+                o["default"].sub.map(function(t) {
+                    return t.querySelector("p").style.display = M ? "block" : "none"
+                })
+            },
+            moveToCenter: function() {
+                Q.centered = !0, Q.pause = !0, Q.stopVelocityAndAcceleration(), Q.x = T["default"].width / 2 - 25, Q.y = T["default"].height / 2 - 25, O["default"].registerAnimation({
+                    name: "movetomiddle",
+                    animation: {
+                        0: {
+                            translate: A["default"](Q.el)
+                        },
+                        100: {
+                            translate: {
+                                x: T["default"].width / 2 - 25,
+                                y: T["default"].height / 2 - 25
+                            }
+                        }
+                    },
+                    presets: {
+                        duration: 500
+                    }
+                }), I["default"](), O["default"].runAnimation(Q.el, "movetomiddle").then(function() {
+                    return Q.showBodies(!1), O["default"].runAnimation(Q.el.querySelector("img"), {
+                        name: "spin",
+                        resetWhenDone: !0
+                    }), Promise.all(o["default"].sub.map(function(M, t) {
+                        return M.style.display = "block", O["default"].runAnimation(M, "arc" + t)
+                    }))
+                }).then(function() {
+                    return O["default"].runAnimation(o["default"].container.querySelectorAll(".childDot a"), "flip"), O["default"].runAnimation(Q.el.querySelector("a"), "flip")
+                }).then(function() {
+                    return Q.showBodies(!0), Promise.all(o["default"].sub.map(function(M, t) {
+                        return O["default"].runAnimation(M.querySelector("p"), "fadein")
+                    }))
+                })["catch"](function(M) {
+                    console.log(M)
+                })
+            },
+            collapse: function() {
+                function M(M, t) {
+                    return Math.floor(Math.random() * (t - M + 1)) + M
+                }
+                Promise.resolve().then(function() {
+                    return o["default"].sub.map(function(M, t) {
+                        return O["default"].runAnimation(M.querySelector("p"), "fadeout")
+                    }), O["default"].runAnimation(o["default"].main.querySelectorAll("a"), "unflip")
+                }).then(function() {
+                    return Q.showBodies(!1), o["default"].all.forEach(function(M, t) {
+                        return z["default"](M, "dnb" + t)
+                    }), Promise.all(o["default"].all.map(function(t, N) {
+                        return O["default"].runAnimation(t, {
+                            name: "dnb" + N,
+                            delay: N ? M(200, 800) : 0
+                        })
+                    }))
+                }).then(function() {
+                    o["default"].sub.forEach(function(M) {
+                        return w["default"](M, {
+                            display: "none"
+                        })
+                    }), Q.reset(), Q.setPositionAsLeftByAnimation()
+                })["catch"](function(M) {
+                    console.log(M)
+                })
+            },
+            stopVelocityAndAcceleration: function() {
+                Q.vx = Q.vy = Q.ax = Q.ay = 0
+            },
+            updateVelocity: function() {
+                if (Q.coords[1]) {
+                    var M = Q.coords[0][0] - Q.coords[1][0],
+                        t = Q.coords[0][1] - Q.coords[1][1],
+                        N = Q.coords[0][2] - Q.coords[1][2];
+                    Q.vx = M / N * 1e3, Q.vy = t / N * 1e3
+                }
+            },
+            onClick: function() {
+                Q.onTap()
+            },
+            onTap: function() {
+                Q.centered ? Q.collapse() : Q.moveToCenter()
+            },
+            onTouchEnd: function() {
+                Q.touching = !1, Date.now() - Q.startTime < 200 && Q.coords.length < 3 && Q.onTap()
+            },
+            onTouchStart: function(M) {
+                M.preventDefault(), Q.startTime = Date.now(), Q.startX = Q.x, Q.startY = Q.y, Q.touching = !0, Q.coords = []
+            },
+            onTouchMove: function(M) {
+                var t = M.touches[0],
+                    N = t.pageX - 30,
+                    u = t.pageY - 40;
+                Q.stopped && (Q.stopped = !1, Q.pause = !1, p()), M.preventDefault(M), Q.x = N, Q.y = u, Q.stopVelocityAndAcceleration(), Q.coords.unshift([N, u, Date.now()]), Q.coords.length > 3 && Q.coords.pop(), Q.updateVelocity()
+            },
+            setPositionAsLeftByAnimation: function() {
+                var M = A["default"](Q.el);
+                Q.x = M.x, Q.y = M.y, Q.stopped = !0, Q.pause = !1
+            }
+        }),
+        C = .65,
+        Y = 70,
+        U = 1,
+        k = 50,
+        p = function m() {
+            if (Q.stopped || Q.pause) return void(Q.pause && (Q.pause = !1));
+            var M = window.innerWidth / window.innerHeight > 1;
+            M ? (Q.vx = Q.vx - Q.ay, Q.vy = Q.vy - Q.ax) : (Q.vy = Q.vy - Q.ay, Q.vx = Q.vx + Q.ax), Q.vx = Q.vx * U * .98, Q.vy = Q.vy * U, Q.y = Q.y + Q.vy / Y, Q.x = Q.x + Q.vx / Y, n(), Q.el.style.animation = Q.el.style.webkitAnimation = "", e["default"](Q.el, "translate3d(" + Q.x + "px, " + Q.y + "px, 0)"), requestAnimationFrame(m)
+        };
+    window.addEventListener("devicemotion", function(M) {
+        var t = /iPad|iPhone|iPod/.test(navigator.userAgent) ? 1 : -1;
+        Q.touching || (Q.ax = 5 * M.accelerationIncludingGravity.x * t, Q.ay = 5 * M.accelerationIncludingGravity.y * t)
+    }), window.dot = Q, d["default"](function() {
+        setTimeout(Q.init, 500)
+    })
+}, function(M, t, N) {
+    "use strict";
+
+    function u(M) {
+        return M && M.__esModule ? M : {
+            "default": M
+        }
+    }
+
+    function n(M, t) {
+        var N = e["default"].width / 2 - 25,
+            u = e["default"].height / 2 - 25;
+        return [M + N, t + u]
+    }
+    Object.defineProperty(t, "__esModule", {
+        value: !0
+    });
+    var j = N(2),
+        e = u(j),
+        D = N(1),
+        i = u(D),
+        T = N(13),
+        r = u(T);
+    t["default"] = function() {
+        var M = 150,
+            t = Math.min(e["default"].width, e["default"].height),
+            N = t > 4 * M ? M : t / 4,
+            u = .6666 * N,
+            j = [
+                [n(0, 0), n(0, u), n(-N, N), n(-N, -N)],
+                [n(0, 0), n(u, 0), n(N, N), n(-N, N)],
+                [n(0, 0), n(0, -u), n(N, -N), n(N, N)],
+                [n(0, 0), n(-u, 0), n(-N, -N), n(N, -N)]
+            ];
+        j.forEach(function(M, t) {
+            var N = r["default"](M);
+            N = N.map(function(M, t) {
+                var u = 0;
+                return t && (u = 360 * (t / N.length)), t === N.length - 1 && (u = 360), {
+                    translate: M,
+                    rotate: u
+                }
+            }), i["default"].registerAnimation({
+                name: "arc" + t,
+                animation: N,
+                presets: {
+                    duration: 600,
+                    easing: "linear",
+                    delay: 150
+                }
+            })
+        })
+    }, M.exports = t["default"]
+}, function(M, t, N) {
+    "use strict";
+
+    function u(M) {
+        return M && M.__esModule ? M : {
+            "default": M
+        }
+    }
+    Object.defineProperty(t, "__esModule", {
+        value: !0
+    });
+    var n = N(10),
+        j = u(n),
+        e = N(1),
+        D = u(e),
+        i = N(5),
+        T = u(i),
+        r = N(2),
+        L = u(r);
+    t["default"] = function(M, t) {
+        var N = j["default"](M, {
+                includePageOffset: !0
+            }),
+            u = N.x,
+            n = N.y,
+            e = L["default"].height - n,
+            i = L["default"].width + 50,
+            r = [u, n],
+            y = [u, e],
+            o = [u, L["default"].height - 50],
+            g = [.22 * i, .75 * e],
+            z = [20, L["default"].height - 70],
+            c = [];
+        T["default"](r, y, o, 50, c), T["default"](o, g, z, 50, c);
+        var o = Math.round(c.length / 2);
+        c = c.map(function(M, t) {
+            var N = 0;
+            return t && (N = -360 * (t / c.length)), t === c.length - 1 && (N = -360), {
+                translate: M,
+                rotate: N
+            }
+        }), D["default"].registerAnimation({
+            name: t,
+            animation: c,
+            presets: {
+                duration: 1e3,
+                easing: "linear",
+                delay: 500
+            }
+        })
+    }, M.exports = t["default"]
+}, function(M, t, N) {
+    "use strict";
+
+    function u(M) {
+        return M && M.__esModule ? M : {
+            "default": M
+        }
+    }
+    Object.defineProperty(t, "__esModule", {
+        value: !0
+    });
+    var n = N(1),
+        j = u(n),
+        e = N(5),
+        D = u(e),
+        i = N(2),
+        T = u(i);
+    t["default"] = function() {
+        j["default"].registerAnimation({
+            name: "spin",
+            animation: {
+                0: {
+                    rotate: 0
+                },
+                25: {
+                    rotate: -70
+                },
+                100: {
+                    rotate: 720
+                }
+            },
+            presets: {
+                duration: 500,
+                easing: "ease-out",
+                resetWhenDone: !0
+            }
+        }), j["default"].registerAnimation({
+            name: "fadein",
+            animation: {
+                0: {
+                    opacity: 0
+                },
+                100: {
+                    opacity: 1
+                }
+            },
+            presets: {
+                duration: 300
+            }
+        }), j["default"].registerAnimation({
+            name: "fadeout",
+            animation: {
+                0: {
+                    opacity: 1
+                },
+                100: {
+                    opacity: 0
+                }
+            },
+            presets: {
+                duration: 300
+            }
+        }), j["default"].registerAnimation({
+            name: "flip",
+            animation: {
+                0: {
+                    transform: "rotateX(0deg)"
+                },
+                100: {
+                    transform: "rotateX(180deg)"
+                }
+            },
+            presets: {
+                duration: 300,
+                easing: "ease-out",
+                delay: 300
+            }
+        }), j["default"].registerAnimation({
+            name: "unflip",
+            animation: {
+                0: {
+                    transform: "rotateX(180deg)"
+                },
+                100: {
+                    transform: "rotateX(0deg)"
+                }
+            },
+            presets: {
+                duration: 300,
+                easing: "ease-out",
+                delay: 300
+            }
+        });
+        var M = T["default"].width + 50,
+            t = .5 * T["default"].height,
+            N = [M, t],
+            u = [.75 * M, t],
+            n = [.5 * M, T["default"].height - 50],
+            e = [.22 * M, .75 * t],
+            i = [20, T["default"].height - 70],
+            r = [];
+        D["default"](N, u, n, 50, r), D["default"](n, e, i, 50, r);
+        var n = Math.round(r.length / 2);
+        r = r.map(function(M, t) {
+            var N = 0;
+            return t && (N = -360 * (t / r.length)), t === r.length - 1 && (N = -360), {
+                translate: M,
+                rotate: N
+            }
+        }), j["default"].registerAnimation({
+            name: "rollbounce",
+            animation: r,
+            presets: {
+                duration: 1e3,
+                easing: "linear",
+                delay: 500
+            }
+        })
+    }, M.exports = t["default"]
+}, function(M, t) {
+    function N(M, t) {
+        return u(M.length)(M, t)
+    }
+
+    function u(M) {
+        if (M = 0 | +M, !M) throw new Error("Cannot create a interpolator with no elements");
+        if (i[M]) return i[M];
+        for (var t = ["var ut = 1 - t", ""], N = M; N--;) {
+            for (var u = 0; N > u; u += 1) N + 1 === M ? t.push("var p" + u + " = arr[" + u + "] * ut + arr[" + (u + 1) + "] * t") : N > 1 ? t.push("p" + u + " = p" + u + " * ut + p" + (u + 1) + " * t") : t.push("return p" + u + " * ut + p" + (u + 1) + " * t");
+            N > 1 && t.push("")
+        }
+        return t = ["return function bezier" + M + "(arr, t) {", t.map(function(M) {
+            return "  " + M
+        }).join("\n"), "}"].join("\n"), Function(t)()
+    }
+
+    function n(M) {
+        return M[0]
+    }
+
+    function j(M, t) {
+        return M[0] + (M[1] - M[0]) * t
+    }
+
+    function e(M, t) {
+        var N = 1 - t;
+        return (M[0] * N + M[1] * t) * N + (M[1] * N + M[2] * t) * t
+    }
+
+    function D(M, t) {
+        var N = 1 - t,
+            u = M[1] * N + M[2] * t;
+        return ((M[0] * N + M[1] * t) * N + u * t) * N + (u * N + (M[2] * N + M[3] * t) * t) * t
+    }
+    var i = {
+        1: n,
+        2: j,
+        3: e,
+        4: D
+    };
+    M.exports = N, M.exports.prepare = u
+}, function(M, t) {
+    var N = window.addEventListener ? "addEventListener" : "attachEvent",
+        u = window.removeEventListener ? "removeEventListener" : "detachEvent",
+        n = "addEventListener" !== N ? "on" : "";
+    t.bind = function(M, t, u, j) {
+        return M[N](n + t, u, j || !1), u
+    }, t.unbind = function(M, t, N, j) {
+        return M[u](n + t, N, j || !1), N
+    }
+}, function(M, t, N) {
+    var u = N(4);
+    M.exports = u ? "webkitAnimation" : "animation"
+}, function(M, t, N) {
+    function u(M, t) {
+        return M.hasOwnProperty(t) ? M[t] : 0
+    }
+    var n = N(3);
+    M.exports = function(M) {
+        var t = [];
+        return Array.isArray(M) ? t = 2 === M.length ? t.concat(M, 0) : M : (t.push(u(M, "x")), t.push(u(M, "y")), t.push(u(M, "z"))), t = t.map(function(M) {
+            return n(M, "px")
+        }), "translate3d(" + t.join(",") + ")"
+    }
+}, function(M, t, N) {
+    function u(M, t) {
+        return "number" == typeof M ? M += "%" : "string" == typeof M && -1 === M.indexOf("%") && (M += "%"), M + "{" + n(t) + "}"
+    }
+    var n = N(25),
+        j = N(4);
+    M.exports = function(M, t) {
+        var N = "@" + j + "keyframes " + M + "{";
+        if (Array.isArray(t)) N += t.map(function(M, N) {
+            var n;
+            return n = N ? N / (t.length - 1) * 100 : 0, u(n, M)
+        }).join("");
+        else
+            for (var n in t) N += u(n, t[n]);
+        return N += "}"
+    }
+}, function(M, t, N) {
+    var u = N(23),
+        n = N(4),
+        j = N(3),
+        e = {
+            scale: function(M) {
+                return "scale(" + M + ")"
+            },
+            rotate: function(M) {
+                return "rotate(" + j(M, "deg") + ")"
+            },
+            translate: function(M) {
+                return u(M)
+            },
+            transform: function(M) {
+                return M
+            }
+        };
+    M.exports = function(M) {
+        if (Array.isArray(M)) return n + "transform:" + u(M);
+        var t = [],
+            N = [];
+        if ("object" == typeof M)
+            for (var j in M) e[j] ? t.push(e[j](M[j])) : N.push(j + ":" + M[j]);
+        return N.push(n + "transform:" + t.join("")), N.join(";")
+    }
+}, function(M, t) {
+    function N(M, t) {
+        t || (t = document);
+        var N = t.head || t.getElementsByTagName("head")[0];
+        if (!N) {
+            N = t.createElement("head");
+            var u = t.body || t.getElementsByTagName("body")[0];
+            u ? u.parentNode.insertBefore(N, u) : t.documentElement.appendChild(N)
+        }
+        var n = t.createElement("style");
+        return n.type = "text/css", n.styleSheet ? n.styleSheet.cssText = M : n.appendChild(t.createTextNode(M)), N.appendChild(n), n
+    }
+    M.exports = N
+}, function(M, t, N) {
+    function u(M, t) {
+        return void 0 === M ? t : M
+    }
+
+    function n(M, t) {
+        return e(function(N) {
+            var u = N[0];
+            return null == u ? u : (N.push(t), M.apply(void 0, N))
+        })
+    }
+    var j = N(28),
+        e = N(7),
+        D = n(j, u);
+    M.exports = D
+}, function(M, t, N) {
+    function u(M, t, N) {
+        for (var u = -1, n = e(t), j = n.length; ++u < j;) {
+            var D = n[u],
+                i = M[D],
+                T = N(i, t[D], D, M, t);
+            (T === T ? T === i : i !== i) && (void 0 !== i || D in M) || (M[D] = T)
+        }
+        return M
+    }
+    var n = N(29),
+        j = N(31),
+        e = N(6),
+        D = j(function(M, t, N) {
+            return N ? u(M, t, N) : n(M, t)
+        });
+    M.exports = D
+}, function(M, t, N) {
+    function u(M, t) {
+        return null == t ? M : n(t, j(t), M)
+    }
+    var n = N(30),
+        j = N(6);
+    M.exports = u
+}, function(M, t) {
+    function N(M, t, N) {
+        N || (N = {});
+        for (var u = -1, n = t.length; ++u < n;) {
+            var j = t[u];
+            N[j] = M[j]
+        }
+        return N
+    }
+    M.exports = N
+}, function(M, t, N) {
+    function u(M) {
+        return e(function(t, N) {
+            var u = -1,
+                e = null == t ? 0 : N.length,
+                D = e > 2 ? N[e - 2] : void 0,
+                i = e > 2 ? N[2] : void 0,
+                T = e > 1 ? N[e - 1] : void 0;
+            for ("function" == typeof D ? (D = n(D, T, 5), e -= 2) : (D = "function" == typeof T ? T : void 0, e -= D ? 1 : 0), i && j(N[0], N[1], i) && (D = 3 > e ? void 0 : D, e = 1); ++u < e;) {
+                var r = N[u];
+                r && M(t, r, D)
+            }
+            return t
+        })
+    }
+    var n = N(32),
+        j = N(33),
+        e = N(7);
+    M.exports = u
+}, function(M, t) {
+    function N(M, t, N) {
+        if ("function" != typeof M) return u;
+        if (void 0 === t) return M;
+        switch (N) {
+            case 1:
+                return function(N) {
+                    return M.call(t, N)
+                };
+            case 3:
+                return function(N, u, n) {
+                    return M.call(t, N, u, n)
+                };
+            case 4:
+                return function(N, u, n, j) {
+                    return M.call(t, N, u, n, j)
+                };
+            case 5:
+                return function(N, u, n, j, e) {
+                    return M.call(t, N, u, n, j, e)
+                }
+        }
+        return function() {
+            return M.apply(t, arguments)
+        }
+    }
+
+    function u(M) {
+        return M
+    }
+    M.exports = N
+}, function(M, t) {
+    function N(M) {
+        return function(t) {
+            return null == t ? void 0 : t[M]
+        }
+    }
+
+    function u(M) {
+        return null != M && e(r(M))
+    }
+
+    function n(M, t) {
+        return M = "number" == typeof M || i.test(M) ? +M : -1, t = null == t ? T : t, M > -1 && M % 1 == 0 && t > M
+    }
+
+    function j(M, t, N) {
+        if (!D(N)) return !1;
+        var j = typeof t;
+        if ("number" == j ? u(N) && n(t, N.length) : "string" == j && t in N) {
+            var e = N[t];
+            return M === M ? M === e : e !== e
+        }
+        return !1
+    }
+
+    function e(M) {
+        return "number" == typeof M && M > -1 && M % 1 == 0 && T >= M
+    }
+
+    function D(M) {
+        var t = typeof M;
+        return !!M && ("object" == t || "function" == t)
+    }
+    var i = /^\d+$/,
+        T = 9007199254740991,
+        r = N("length");
+    M.exports = j
+}, function(M, t) {
+    function N(M) {
+        return !!M && "object" == typeof M
+    }
+
+    function u(M, t) {
+        var N = null == M ? void 0 : M[t];
+        return e(N) ? N : void 0
+    }
+
+    function n(M) {
+        return j(M) && y.call(M) == D
+    }
+
+    function j(M) {
+        var t = typeof M;
+        return !!M && ("object" == t || "function" == t)
+    }
+
+    function e(M) {
+        return null == M ? !1 : n(M) ? o.test(r.call(M)) : N(M) && i.test(M)
+    }
+    var D = "[object Function]",
+        i = /^\[object .+?Constructor\]$/,
+        T = Object.prototype,
+        r = Function.prototype.toString,
+        L = T.hasOwnProperty,
+        y = T.toString,
+        o = RegExp("^" + r.call(L).replace(/[\\^$.*+?()[\]{}|]/g, "\\$&").replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, "$1.*?") + "$");
+    M.exports = u
+}, function(M, t) {
+    function N(M) {
+        return !!M && "object" == typeof M
+    }
+
+    function u(M) {
+        return function(t) {
+            return null == t ? void 0 : t[M]
+        }
+    }
+
+    function n(M) {
+        return null != M && j(L(M))
+    }
+
+    function j(M) {
+        return "number" == typeof M && M > -1 && M % 1 == 0 && r >= M
+    }
+
+    function e(M) {
+        return N(M) && n(M) && i.call(M, "callee") && !T.call(M, "callee")
+    }
+    var D = Object.prototype,
+        i = D.hasOwnProperty,
+        T = D.propertyIsEnumerable,
+        r = 9007199254740991,
+        L = u("length");
+    M.exports = e
+}, function(M, t) {
+    function N(M) {
+        return !!M && "object" == typeof M
+    }
+
+    function u(M, t) {
+        var N = null == M ? void 0 : M[t];
+        return D(N) ? N : void 0
+    }
+
+    function n(M) {
+        return "number" == typeof M && M > -1 && M % 1 == 0 && I >= M
+    }
+
+    function j(M) {
+        return e(M) && g.call(M) == T
+    }
+
+    function e(M) {
+        var t = typeof M;
+        return !!M && ("object" == t || "function" == t)
+    }
+
+    function D(M) {
+        return null == M ? !1 : j(M) ? z.test(y.call(M)) : N(M) && r.test(M)
+    }
+    var i = "[object Array]",
+        T = "[object Function]",
+        r = /^\[object .+?Constructor\]$/,
+        L = Object.prototype,
+        y = Function.prototype.toString,
+        o = L.hasOwnProperty,
+        g = L.toString,
+        z = RegExp("^" + y.call(o).replace(/[\\^$.*+?()[\]{}|]/g, "\\$&").replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, "$1.*?") + "$"),
+        c = u(Array, "isArray"),
+        I = 9007199254740991,
+        a = c || function(M) {
+            return N(M) && n(M.length) && g.call(M) == i
+        };
+    M.exports = a
+}, function(M, t, N) {
+    (function(t) {
+        var u, n = N(38),
+            j = Array.prototype.slice;
+        "undefined" != typeof window && (u = window.Promise), "undefined" != typeof t && (u = t.Promise), M.exports = function(M) {
+            return u ? function() {
+                var t = j.call(arguments),
+                    N = this;
+                return n(t.slice(-1)) ? M.apply(N, t) : new u(function(u, n) {
+                    t.push(function(M, t) {
+                        M ? n(M) : u.apply(this, j.call(arguments, 1))
+                    }), M.apply(N, t)
+                })
+            } : M
+        }
+    }).call(t, function() {
+        return this
+    }())
+}, function(M, t) {
+    function N(M) {
+        var t = u.call(M);
+        return "[object Function]" === t || "function" == typeof M && "[object RegExp]" !== t || "undefined" != typeof window && (M === window.setTimeout || M === window.alert || M === window.confirm || M === window.prompt)
+    }
+    M.exports = N;
+    var u = Object.prototype.toString
+}, function(M, t) {
+    for (var N, u = ["webkitTransform", "MozTransform", "msTransform", "OTransform", "transform"], n = document.createElement("p"), j = 0; j < u.length; j++)
+        if (N = u[j], null != n.style[N]) {
+            M.exports = N;
+            break
+        }
+}, function(M, t) {
+    var N = null;
+    M.exports = function(M) {
+        var t = ["Moz", "Khtml", "Webkit", "O", "ms"],
+            u = M.charAt(0).toUpperCase() + M.slice(1);
+        if (N || (N = document.createElement("div")), M in N.style) return M;
+        for (var n = t.length; n--;)
+            if (t[n] + u in N.style) return t[n] + u;
+        return !1
+    }
+}, function(M, t, N) {
+    function u(M) {
+        return n(M).replace(/\s(\w)/g, function(M, t) {
+            return t.toUpperCase()
+        })
+    }
+    var n = N(42);
+    M.exports = u
+}, function(M, t, N) {
+    function u(M) {
+        return n(M).replace(/[\W_]+(.|$)/g, function(M, t) {
+            return t ? " " + t : ""
+        })
+    }
+    var n = N(43);
+    M.exports = u
+}, function(M, t) {
+    function N(M) {
+        return j.test(M) ? M.toLowerCase() : (D.test(M) && (M = u(M)), e.test(M) && (M = n(M)), M.toLowerCase())
+    }
+
+    function u(M) {
+        return M.replace(i, function(M, t) {
+            return t ? " " + t : ""
+        })
+    }
+
+    function n(M) {
+        return M.replace(T, function(M, t, N) {
+            return t + " " + N.toLowerCase().split("").join(" ")
+        })
+    }
+    M.exports = N;
+    var j = /\s/,
+        e = /[a-z][A-Z]/,
+        D = /[\W_]/,
+        i = /[\W_]+(.|$)/g,
+        T = /(.)([A-Z]+)/g
+}, function(M, t, N) {
+    ! function(t, N) {
+        M.exports = N()
+    }("domready", function() {
+        var M, t = [],
+            N = document,
+            u = N.documentElement.doScroll,
+            n = "DOMContentLoaded",
+            j = (u ? /^loaded|^c/ : /^loaded|^i|^c/).test(N.readyState);
+        return j || N.addEventListener(n, M = function() {
+                for (N.removeEventListener(n, M), j = 1; M = t.shift();) M()
+            }),
+            function(M) {
+                j ? setTimeout(M, 0) : t.push(M)
+            }
+    })
+}, 39, function(M, t) {
+    var N, u = document.createElement("div").style;
+    ["transform", "webkitTransform", "MozTransform", "oTransform", "msTransform"].some(function(M) {
+        return M in u ? (N = M, !0) : void 0
+    }), M.exports = function(M, t, u) {
+        return u ? M.style[N] += " " + t : M.style[N] = t, M
+    }
+}, function(M, t, N) {
+    ! function() {
+        function N() {
+            return {
+                keys: Object.keys || function(M) {
+                    if ("object" != typeof M && "function" != typeof M || null === M) throw new TypeError("keys() called on a non-object");
+                    var t, N = [];
+                    for (t in M) M.hasOwnProperty(t) && (N[N.length] = t);
+                    return N
+                },
+                uniqueId: function(M) {
+                    var t = ++D + "";
+                    return M ? M + t : t
+                },
+                has: function(M, t) {
+                    return j.call(M, t)
+                },
+                each: function(M, t, N) {
+                    if (null != M)
+                        if (n && M.forEach === n) M.forEach(t, N);
+                        else if (M.length === +M.length)
+                        for (var u = 0, j = M.length; j > u; u++) t.call(N, M[u], u, M);
+                    else
+                        for (var e in M) this.has(M, e) && t.call(N, M[e], e, M)
+                },
+                once: function(M) {
+                    var t, N = !1;
+                    return function() {
+                        return N ? t : (N = !0, t = M.apply(this, arguments), M = null, t)
+                    }
+                }
+            }
+        }
+        var u, n = Array.prototype.forEach,
+            j = Object.prototype.hasOwnProperty,
+            e = Array.prototype.slice,
+            D = 0,
+            i = N();
+        u = {
+            on: function(M, t, N) {
+                if (!r(this, "on", M, [t, N]) || !t) return this;
+                this._events || (this._events = {});
+                var u = this._events[M] || (this._events[M] = []);
+                return u.push({
+                    callback: t,
+                    context: N,
+                    ctx: N || this
+                }), this
+            },
+            once: function(M, t, N) {
+                if (!r(this, "once", M, [t, N]) || !t) return this;
+                var u = this,
+                    n = i.once(function() {
+                        u.off(M, n), t.apply(this, arguments)
+                    });
+                return n._callback = t, this.on(M, n, N)
+            },
+            off: function(M, t, N) {
+                var u, n, j, e, D, T, L, y;
+                if (!this._events || !r(this, "off", M, [t, N])) return this;
+                if (!M && !t && !N) return this._events = {}, this;
+                for (e = M ? [M] : i.keys(this._events), D = 0, T = e.length; T > D; D++)
+                    if (M = e[D], j = this._events[M]) {
+                        if (this._events[M] = u = [], t || N)
+                            for (L = 0, y = j.length; y > L; L++) n = j[L], (t && t !== n.callback && t !== n.callback._callback || N && N !== n.context) && u.push(n);
+                        u.length || delete this._events[M]
+                    }
+                return this
+            },
+            trigger: function(M) {
+                if (!this._events) return this;
+                var t = e.call(arguments, 1);
+                if (!r(this, "trigger", M, t)) return this;
+                var N = this._events[M],
+                    u = this._events.all;
+                return N && L(N, t), u && L(u, arguments), this
+            },
+            stopListening: function(M, t, N) {
+                var u = this._listeners;
+                if (!u) return this;
+                var n = !t && !N;
+                "object" == typeof t && (N = this), M && ((u = {})[M._listenerId] = M);
+                for (var j in u) u[j].off(t, N, this), n && delete this._listeners[j];
+                return this
+            }
+        };
+        var T = /\s+/,
+            r = function(M, t, N, u) {
+                if (!N) return !0;
+                if ("object" == typeof N) {
+                    for (var n in N) M[t].apply(M, [n, N[n]].concat(u));
+                    return !1
+                }
+                if (T.test(N)) {
+                    for (var j = N.split(T), e = 0, D = j.length; D > e; e++) M[t].apply(M, [j[e]].concat(u));
+                    return !1
+                }
+                return !0
+            },
+            L = function(M, t) {
+                var N, u = -1,
+                    n = M.length,
+                    j = t[0],
+                    e = t[1],
+                    D = t[2];
+                switch (t.length) {
+                    case 0:
+                        for (; ++u < n;)(N = M[u]).callback.call(N.ctx);
+                        return;
+                    case 1:
+                        for (; ++u < n;)(N = M[u]).callback.call(N.ctx, j);
+                        return;
+                    case 2:
+                        for (; ++u < n;)(N = M[u]).callback.call(N.ctx, j, e);
+                        return;
+                    case 3:
+                        for (; ++u < n;)(N = M[u]).callback.call(N.ctx, j, e, D);
+                        return;
+                    default:
+                        for (; ++u < n;)(N = M[u]).callback.apply(N.ctx, t)
+                }
+            },
+            y = {
+                listenTo: "on",
+                listenToOnce: "once"
+            };
+        i.each(y, function(M, t) {
+            u[t] = function(t, N, u) {
+                var n = this._listeners || (this._listeners = {}),
+                    j = t._listenerId || (t._listenerId = i.uniqueId("l"));
+                return n[j] = t, "object" == typeof N && (u = this), t[M](N, u, this), this
+            }
+        }), u.bind = u.on, u.unbind = u.off, u.mixin = function(M) {
+            var t = ["on", "once", "off", "trigger", "stopListening", "listenTo", "listenToOnce", "bind", "unbind"];
+            return i.each(t, function(t) {
+                M[t] = this[t]
+            }, this), M
+        }, "undefined" != typeof M && M.exports && (t = M.exports = u), t.BackboneEvents = u
+    }(this)
+}, function(M, t, N) {
+    M.exports = N(47)
+}, function(M, t) {
+    function N(M) {
+        var t = (new Date).getTime(),
+            N = Math.max(0, 16 - (t - u)),
+            n = setTimeout(M, N);
+        return u = t, n
+    }
+    t = M.exports = window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || N;
+    var u = (new Date).getTime(),
+        n = window.cancelAnimationFrame || window.webkitCancelAnimationFrame || window.mozCancelAnimationFrame || window.oCancelAnimationFrame || window.msCancelAnimationFrame || window.clearTimeout;
+    t.cancel = function(M) {
+        n.call(window, M)
+    }
+}]));

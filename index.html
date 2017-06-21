@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>QuickLight</title>
+  <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">-->
+  <link title="main" rel="stylesheet" href="static/css/main.css">
+</head>
+<body class="row no-magin">
+<div class="col s12">
+  <div class="row no-margin">
+    <div id="mainTitle" class="link col zone no-padding"><h1>Quick LIGHT</h1></div>
+    <div class="link col zone"><a href="https://github.com/Jonathancollinet/text-effect-generator"
+                                  target="_blank">HELP</a></div>
+    <div class="link col zone"><a href="https://github.com/Jonathancollinet/text-effect-generator"
+                                  target="_blank">GIT</a></div>
+    <div class="link col zone"><a href="https://github.com/Jonathancollinet/text-effect-generator" target="_blank">EXPORT</a>
+    </div>
+  </div>
+</div>
+<div id="textZone" class="col s12 m6 zone">
+  <div class="headerCol"><span class="lined">FREE PARTY</span> TEXT ZONE</div>
+  <div class="helpVertical">
+    <div id="livePreview" class="helpVertical" contenteditable="true" spellcheck="false">
+      example
+      <!--The CROU, the CROU is just an other way of thinking, i don't know if you realize.-->
+      <!--Encore un coup de crasse et j'te rosse à coup de crosse !-->
+      <!--J'fais ma ptite affaire et j'm'essui la bite aux rideaux-->
+    </div>
+  </div>
+</div>
+<div id="animationPanel" class="col s12 m5 zone">
+  <div class="headerCol">GLOBAL PANEL</div>
+  <div class="inputLabel">
+    <label for="animationDurationInput">Animation duration <span id="animationDurationValue"
+                                                                 class="value">0</span>ms</label>
+    <input id="animationDurationInput" type="range" min="100" max="29899" step="100" value="1500">
+  </div>
+  <div class="inputLabel">
+    <label for="hideMedianTextInput">Hide median text <span id="hideMedianTextValue">false</span></label>
+    <input id="hideMedianTextInput" type="checkbox">
+  </div>
+  <div class="inputLabel">
+    <label for="point2pointInput">Point to Point <span id="point2pointValue">false</span></label>
+    <input id="point2pointInput" type="checkbox">
+  </div>
+  <div class="inputLabel">
+    <label for="textColorInput">TextColor <span id="textColorValue"></span></label>
+    <input id="textColorInput" type="color">
+  </div>
+  <div class="inputLabel">
+    <label for="colorInput">Color <span id="colorValue"></span></label>
+    <input id="colorInput" type="color">
+  </div>
+</div>
+<div id="medianChart" class="col s12 m6 zone">
+  <div class="headerCol">MEDIAN POINTS</div>
+  <div id="medianChartRect"></div>
+</div>
+<div id="pointTool" class="col s12 m5 zone">
+  <div class="headerCol">POINT <span id="pointNumber"></span></div>
+  <div id="pointPreview"></div>
+  <div id="pointAttributes">
+    <div class="row">
+      <div class="col s4 pointContainer" id="colorContainer"></div>
+      <div class="col s4 pointContainer" id="blurContainer"></div>
+      <div class="col s4 pointContainer" id="posContainer"></div>
+    </div>
+  </div>
+</div>
+
+<script type="text/x-custom-template" id="colorPoint">
+  <div class="inputLabel">
+    <label for="colorPointInput">Col n°<span id="nbColor"></span><span id="colorPointValue"></span></label>
+    <input id="colorPointInput" type="color">
+  </div>
+</script>
+<script type="text/x-custom-template" id="blurPoint">
+  <div class="inputLabel">
+    <label for="blurPointInput">Blur n°<span id="nbBlur"></span><span id="blurPointValue"></span></label>
+    <input id="blurPointInput" type="number" style="width:40px">
+  </div>
+</script>
+<script type="text/x-custom-template" id="posPoint">
+  <div class="inputLabel">
+    <label><span id="nbPoint"></span>: <span id="posPointValue"></span></label>
+  </div>
+</script>
+<script type="text/javascript" src="index.js"></script>
+
+</body>
+</html>
